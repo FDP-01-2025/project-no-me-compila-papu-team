@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mi1WNrHU)
-# Proyecto de C++ - [Nombre del Juego]
+# Proyecto de C++ - "¿Quién quiere dejar de ser pobre?"
 
 ## Descripción del Proyecto
 
@@ -10,15 +10,15 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 
 ## Equipo
 
-- **Nombre del equipo:** [Nombre del equipo]
+- **Nombre del equipo:**  No me compila papu team 
 
 ### Integrantes del equipo
 
-1. **Nombre completo:** [Nombre del estudiante 1]  
-   **Carnet:** [Carnet del estudiante 1]
+1. **Nombre completo:** Alejandra Paola Orellana Valladares  
+   **Carnet:** 00108225
 
-2. **Nombre completo:** [Nombre del estudiante 2]  
-   **Carnet:** [Carnet del estudiante 2]
+2. **Nombre completo:** Edgar Ari Peñate Rivera
+   **Carnet:** 00021725
 
 3. **Nombre completo:** [Nombre del estudiante 3]  
    **Carnet:** [Carnet del estudiante 3]
@@ -27,6 +27,48 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
 
 ## Instrucciones de Ejecución
 
-1. Clona este repositorio en tu máquina local:
+   ### Prerrequisitos
+   - Compilador de C++ (g++ recomendado)
+   - Utilidad Make (opcional pero recomendado)
+
+   ### Método 1: Usando Makefile (Recomendado)
    ```bash
-   git clone [URL del repositorio]
+   # 1. Clona este repositorio en tu máquina local:
+   git clone https://github.com/FDP-01-2025/project-no-me-compila-papu-team.git
+   cd project-no-me-compila-papu-team
+
+   # 2. Compila el proyecto
+   make
+
+   # 3. Ejecuta el juego
+   make run
+
+   # O ejecuta directamente
+   ./game_collection
+   ```
+
+   ### Método 2: Compilación Manual
+   ```bash
+   # Compila manualmente todos los archivos
+   g++ -std=c++11 -Wall -Wextra -O2 src/*.cpp -o game_collection
+
+   # Ejecuta el juego
+   ./game_collection
+   ```
+
+   ### Otros Comandos Útiles
+   ```bash
+   make clean    # Elimina archivos de compilación
+   make setup    # Crea directorios necesarios
+   make debug    # Compila con símbolos de debug
+   make help     # Muestra comandos disponibles
+   ```
+
+   ### Cómo Jugar
+   1. Ejecuta el programa con `./game_collection`
+   2. Selecciona tu juego favorito del menú:
+      - **Opción 1:** Hangman (Ahorcado) - Adivina la palabra
+      - **Opción 2:** Tic Tac Toe - Juega contra la computadora
+      - **Opción 3:** Ver puntuaciones altas
+      - **Opción 4:** Salir
+   3. ¡Diviértete y gana puntos de conocimiento!
