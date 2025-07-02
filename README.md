@@ -3,10 +3,14 @@
 
 ## Descripción del Proyecto
 
-Breve descripción del juego, su propósito, cómo se juega y cualquier otro detalle importante que describa la idea general del proyecto.
+Este proyecto consiste en una colección de minijuegos educativos desarrollados en C++ que implementan estructuras de control como `if`, `switch`, y bucles `while` y `for` para generar interacciones dinámicas. Los juegos incluyen:
 
-**Por ejemplo:**
-Este proyecto consiste en un juego de aventuras donde el jugador debe explorar un mundo virtual, recoger objetos, resolver acertijos y enfrentar enemigos. El juego utiliza estructuras de control como `if`, `switch`, y bucles `while` y `for` para generar interacciones dinámicas.
+- **Hangman (Ahorcado)**: Juego de adivinanza de palabras relacionadas con programación
+- **Tic Tac Toe**: Juego de estrategia contra la computadora
+- **RPG Fight**: Juego de batalla por turnos con diferentes niveles de dificultad
+- **Rock Paper Scissors**: Clásico juego de piedra, papel o tijeras con gráficos ASCII
+
+Cada juego implementa validación de entrada, manejo de errores, y utiliza estructuras de datos para mantener el estado del juego.
 
 ## Equipo
 
@@ -24,6 +28,29 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
    **Carnet:** [Carnet del estudiante 3]
 
 (Agregar más integrantes si es necesario)
+
+## Estructura del Proyecto
+
+```
+project-no-me-compila-papu-team/
+├── src/                    # Código fuente principal
+│   ├── main.cpp           # Punto de entrada del programa
+│   ├── hangman.cpp/h      # Juego del ahorcado
+│   ├── tictactoe.cpp/h    # Juego de tic tac toe
+│   ├── rpgfight.cpp/h     # Juego de batalla RPG
+│   ├── rock_paper_scissors.cpp/h  # Piedra, papel o tijeras
+│   ├── ascii_art.cpp/h    # Utilidades de arte ASCII
+│   ├── utils.cpp/h        # Funciones utilitarias
+│   ├── crossword.cpp/h    # Juego de crucigrama
+│   └── game_data/         # Datos del juego
+│       ├── words.txt      # Palabras para el ahorcado
+│       └── scores.txt     # Puntuaciones altas
+├── old_files/             # Archivos antiguos preservados
+├── obj/                   # Archivos objeto de compilación
+├── Makefile              # Script de compilación
+├── .gitignore            # Archivos ignorados por Git
+└── README.md             # Este archivo
+```
 
 ## Instrucciones de Ejecución
 
@@ -67,8 +94,44 @@ Este proyecto consiste en un juego de aventuras donde el jugador debe explorar u
    ### Cómo Jugar
    1. Ejecuta el programa con `./game_collection`
    2. Selecciona tu juego favorito del menú:
-      - **Opción 1:** Hangman (Ahorcado) - Adivina la palabra
+      - **Opción 1:** Hangman (Ahorcado) - Adivina palabras de programación
       - **Opción 2:** Tic Tac Toe - Juega contra la computadora
-      - **Opción 3:** Ver puntuaciones altas
-      - **Opción 4:** Salir
+      - **Opción 3:** RPG Fight - Batalla épica con diferentes dificultades
+      - **Opción 4:** Rock Paper Scissors - Duelo clásico con gráficos ASCII
+      - **Opción 5:** Ver puntuaciones altas
+      - **Opción 6:** Salir
    3. ¡Diviértete y gana puntos de conocimiento!
+
+## Características de los Juegos
+
+### 🎯 Hangman (Ahorcado)
+- Palabras relacionadas con programación
+- Interfaz visual del ahorcado
+- Seguimiento de letras usadas
+- Sistema de puntuación
+
+### ⚔️ Tic Tac Toe
+- Juego contra IA
+- Validación de movimientos
+- Interfaz gráfica ASCII
+- Diferentes niveles de dificultad
+
+### 🎮 RPG Fight
+- Sistema de estadísticas del jugador
+- Diferentes niveles de dificultad
+- Gráficos ASCII del enemigo
+- Sistema de batalla por turnos
+
+### ✂️ Rock Paper Scissors
+- Gráficos ASCII de las manos
+- Sistema de puntuación
+- Múltiples rondas
+- Estadísticas del juego
+
+## Tecnologías Utilizadas
+
+- **Lenguaje:** C++11
+- **Estructuras de Control:** if, switch, while, for
+- **Estructuras de Datos:** Arrays, Strings, Structs
+- **Entrada/Salida:** iostream, fstream
+- **Utilidades:** cstdlib, ctime, limits

@@ -2,6 +2,9 @@
 #include <limits>
 #include "hangman.h"
 #include "tictactoe.h"
+#include "rpgfight.h"
+#include "rock_paper_scissors.h"
+#include "crossword.h"
 #include "utils.h"
 
 using namespace std;
@@ -11,8 +14,11 @@ void showMainMenu() {
     cout << "\n══════ ¿QUIÉN QUIERE DEJAR DE SER POBRE? ══════\n";
     cout << "💰 1. Hangman Game - Earn Knowledge Points!\n";
     cout << "🎯 2. Tic Tac Toe Game - Strategy Challenge!\n";
-    cout << "🏆 3. View High Scores - Hall of Fame!\n";
-    cout << "🚪 4. Exit\n";
+    cout << "🧩 3. Crossword - Word Search Challenge!\n";
+    cout << "⚔️  4. RPG Fight - Epic Battle Adventure!\n";
+    cout << "✂️  5. Rock Paper Scissors - Classic Duel!\n";
+    cout << "🏆 6. View High Scores - Hall of Fame!\n";
+    cout << "🚪 7. Exit\n";
     cout << "Select your path to wealth: ";
 }
 
@@ -48,10 +54,25 @@ int main() {
                 ticTacToeGame.startGame();
                 break;
             }
-            case 3:
+            case 3: {
+                Crossword crosswordGame;
+                crosswordGame.startGame();
+                break;
+            }
+            case 4: {
+                RpgFight rpgGame;
+                rpgGame.startGame();
+                break;
+            }
+            case 5: {
+                RockPaperScissors rpsGame;
+                rpsGame.startGame();
+                break;
+            }
+            case 6:
                 displayHighScores(); // show scores from file
                 break;
-            case 4:
+            case 7:
                 cout << "Thanks for playing! Goodbye!\n";
                 running = false;
                 break;
