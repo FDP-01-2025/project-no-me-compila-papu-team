@@ -1,0 +1,3 @@
+# Game Scores Log
+# Format: Date | Game | Player | Score
+Fri Jun 27 16:51:22 2025 | TicTacToe | 7 | 0
