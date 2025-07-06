@@ -136,6 +136,10 @@ public:
         else
             cout << "\n You lost! The word was: " << secretWord << "\n";
     }
+
+    bool isGameWon() {
+        return guessedWord == secretWord;
+    }
 };
 
 // Interfaz pública
