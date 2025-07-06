@@ -4,7 +4,7 @@
 class RPSGame {
 public:
     RPSGame();
-    void play();
+    bool play(); // Returns true if player wins
 };
 
 #endif

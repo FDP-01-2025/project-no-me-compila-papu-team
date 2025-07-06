@@ -155,7 +155,32 @@ public:
 
 // ========== Interfaz pública ==========
 RPSGame::RPSGame() {}
-void RPSGame::play() {
+bool RPSGame::play() {
     RPSInternal game;
-    game.run();
+    srand(time(0));
+    cout << " Rock, Paper, Scissors - Best of 1!\n";
+    cout << "Choose your move:\n";
+    cout << "0 - Rock\n1 - Paper\n2 - Scissors\n";
+    int playerMove;
+    while (true) {
+        cout << "Your choice: ";
+        cin >> playerMove;
+        if (playerMove >= 0 && playerMove <= 2) break;
+        cout << "Invalid input. Try again.\n";
+    }
+    int computerMove = rand() % 3;
+    game.drawHands(playerMove, computerMove);
+    // Return true if player wins
+    if (playerMove == computerMove) {
+        cout << "\n It's a tie!\n";
+        return false;
+    } else if ((playerMove == 0 && computerMove == 2) ||
+               (playerMove == 1 && computerMove == 0) ||
+               (playerMove == 2 && computerMove == 1)) {
+        cout << "\n You win!\n";
+        return true;
+    } else {
+        cout << "\n Computer wins!\n";
+        return false;
+    }
 }

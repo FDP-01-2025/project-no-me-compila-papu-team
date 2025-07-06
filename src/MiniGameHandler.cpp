@@ -17,9 +17,7 @@ bool playTicTacToe() {
 
 bool playHangman() {
     Hangman game;
-    game.play();
-    // For simplicity, assume player wins if they complete the game
-    return true;
+    return game.play(); // Now returns true only if player wins
 }
 
 bool playCrossword() {
@@ -31,9 +29,7 @@ bool playCrossword() {
 
 bool playRockPaperScissors() {
     RPSGame game;
-    game.play();
-    // For simplicity, assume player wins if they complete the game
-    return true;
+    return game.play(); // Now returns true only if player wins
 }
 
 MiniGameHandler::MiniGameHandler() {}

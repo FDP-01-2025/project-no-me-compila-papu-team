@@ -141,7 +141,9 @@ public:
 // Interfaz pública
 Hangman::Hangman() {}
 
-void Hangman::play() {
+bool Hangman::play() {
     HangmanGame game;
     game.run();
+    // Return true if player won, false otherwise
+    return game.isGameWon();
 }

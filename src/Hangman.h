@@ -4,7 +4,7 @@
 class Hangman {
 public:
     Hangman();
-    void play();
+    bool play(); // Returns true if player wins
 };
 
 #endif
