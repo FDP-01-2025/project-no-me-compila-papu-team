@@ -175,5 +175,12 @@ int main() {
         }
     }
 
+    // Final result
+    printStatus(playerLives, cpuLives);
+    if (playerLives <= 0)
+        cout << RED << "\nYou lost all your lives. CPU wins.\n" << RESET;
+    else if (cpuLives <= 0)
+        cout << GREEN << "\nCPU lost all its lives. You win!\n" << RESET;
+
     return 0;
 }
