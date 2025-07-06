@@ -4,6 +4,14 @@
 
 using namespace std;
 
+void clearConsole() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
 SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10),
     doublePointsActive(false), reducedOptionsActive(false),
     extraLifeActive(false), revealHintActive(false)
@@ -33,6 +41,7 @@ void SuperTriviaGame::applyPowerUpEffect() {
 }
 
 void SuperTriviaGame::showFinalResults() {
+    clearConsole();
     cout << "\n=== ROUND COMPLETED ===\n";
     cout << "Player: " << player.getFullName() << "\n";
     cout << "Score: " << correctAnswers << " out of " << totalQuestions << "\n";
@@ -69,11 +78,13 @@ void SuperTriviaGame::askPlayAgain(bool &playAgain) {
 }
 
 void SuperTriviaGame::start() {
+    clearConsole();
     cout << "=== Welcome to the Super Trivia Game! ===\n";
     player.inputPlayerInfo();
 
     bool playAgain = true;
     while (playAgain) {
+        clearConsole();
         resetPowerUps();
         correctAnswers = 0;
 
@@ -86,6 +97,10 @@ void SuperTriviaGame::start() {
         auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
 
         for (int i = 0; i < totalQuestions; ++i) {
+            clearConsole();
+            cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
+            cout << "Score: " << correctAnswers << "\n\n";
+            
             // Cada 3 preguntas, insertar minijuego
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
