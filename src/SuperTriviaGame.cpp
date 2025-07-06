@@ -115,6 +115,11 @@ void SuperTriviaGame::start() {
                 }
             }
 
+            // Always show question info after mini-games or at start
+            clearConsole();
+            cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
+            cout << "Score: " << correctAnswers << "\n\n";
+
             questions[i].display(reducedOptionsActive, revealHintActive);
 
             cout << "Your answer: ";
