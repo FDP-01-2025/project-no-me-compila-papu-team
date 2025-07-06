@@ -131,7 +131,10 @@ void SuperTriviaGame::start() {
                 clearConsole();
                 cout << "Correct!\n";
                 int pointsToAdd = 1;
-                if (doublePointsActive) pointsToAdd = 2;
+                if (doublePointsActive) {
+                    pointsToAdd = 2;
+                    cout << "DOUBLE POINTS! +" << pointsToAdd << " points\n";
+                }
                 correctAnswers += pointsToAdd;
                 cout << "Press any key to continue...";
                 cin.ignore();
@@ -153,7 +156,10 @@ void SuperTriviaGame::start() {
                     if (questions[i].checkAnswer(answer)) {
                         cout << "Correct!\n";
                         int pointsToAdd = 1;
-                        if (doublePointsActive) pointsToAdd = 2;
+                        if (doublePointsActive) {
+                            pointsToAdd = 2;
+                            cout << "DOUBLE POINTS! +" << pointsToAdd << " points\n";
+                        }
                         correctAnswers += pointsToAdd;
                     } else {
                         cout << "Still incorrect.\n";
@@ -171,7 +177,7 @@ void SuperTriviaGame::start() {
                 }
             }
 
-            // Deactivate power-ups after each question
+            // Deactivate power-ups after each question (except extra life which is handled above)
             if (doublePointsActive) doublePointsActive = false;
             if (reducedOptionsActive) reducedOptionsActive = false;
             if (revealHintActive) revealHintActive = false;
