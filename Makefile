@@ -4,34 +4,21 @@
 
 # Compiler settings
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O2
-TARGET = trivia_game
-SRCDIR = src
-OBJDIR = obj
-
-# Source files
-SOURCES = $(wildcard $(SRCDIR)/*.cpp)
-OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+CXXFLAGS = -std=c++11 -Wall
+SOURCES = src/main.cpp src/SuperTriviaGame.cpp src/jugador.cpp src/preguntas.cpp src/potenciadores.cpp src/sprite.cpp src/trivia.cpp src/Crossword.cpp src/Hangman.cpp src/RPSGame.cpp src/TicTacToe.cpp src/MiniGameHandler.cpp
+TARGET = test
 
 # Default target
 all: $(TARGET)
 
-# Create object directory if it doesn't exist
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-
 # Link object files to create executable
-$(TARGET): $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET)
+$(TARGET): $(SOURCES)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SOURCES)
 	@echo "Build complete! Run with: ./$(TARGET)"
-
-# Compile source files to object files
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean build files
 clean:
-	rm -rf $(OBJDIR) $(TARGET)
+	rm -f $(TARGET)
 	@echo "Clean complete!"
 
 # Run the program
