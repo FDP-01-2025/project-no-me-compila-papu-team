@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -33,7 +34,9 @@ private:
             if (!word.empty() && word.length() <= BOARD_SIZE)
                 words.push_back(word);
         }
-        random_shuffle(words.begin(), words.end());
+        random_device rd;
+        mt19937 g(rd());
+        shuffle(words.begin(), words.end(), g);
         return words;
     }
 
