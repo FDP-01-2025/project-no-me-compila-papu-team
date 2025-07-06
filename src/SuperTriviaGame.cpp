@@ -128,9 +128,13 @@ void SuperTriviaGame::start() {
                 int pointsToAdd = 1;
                 if (doublePointsActive) pointsToAdd = 2;
                 correctAnswers += pointsToAdd;
+                cout << "Press any key to continue...";
+                cin.ignore();
+                cin.get();
             } else {
                 clearConsole();
                 cout << "Incorrect.\n";
+                cout << "The correct answer was: " << questions[i].getCorrectAnswer() << "\n";
                 if (extraLifeActive) {
                     cout << "You have an extra life! Try again: ";
                     // Redisplay the question for the extra life attempt
@@ -148,9 +152,17 @@ void SuperTriviaGame::start() {
                         correctAnswers += pointsToAdd;
                     } else {
                         cout << "Still incorrect.\n";
+                        cout << "The correct answer was: " << questions[i].getCorrectAnswer() << "\n";
                     }
+                    cout << "Press any key to continue...";
+                    cin.ignore();
+                    cin.get();
                     // Extra life used once, deactivate it
                     extraLifeActive = false;
+                } else {
+                    cout << "Press any key to continue...";
+                    cin.ignore();
+                    cin.get();
                 }
             }
         }
