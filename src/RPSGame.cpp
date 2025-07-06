@@ -74,6 +74,14 @@ enum Move { ROCK = 0, PAPER = 1, SCISSORS = 2 };
 
 class RPSInternal {
 private:
+    void clearConsole() {
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    }
+
     string getMoveName(int move) {
         switch (move) {
             case ROCK: return "Rock";
@@ -102,6 +110,7 @@ private:
     }
 
     void drawHands(int playerMove, int computerMove) {
+        clearConsole();
         const string* left = getLeftArt(playerMove);
         const string* right = getRightArt(computerMove);
         cout << "\nYou chose: " << getMoveName(playerMove)
