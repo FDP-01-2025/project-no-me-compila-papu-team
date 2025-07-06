@@ -42,7 +42,7 @@ MiniGameHandler::MiniGameHandler() {}
 
 bool MiniGameHandler::playRandomMiniGame() {
     srand(time(0));
-    int choice = rand() % 4;
+    int choice = rand() % 3;
 
     cout << "\n Starting a mini-game challenge!\n";
 
@@ -54,9 +54,6 @@ bool MiniGameHandler::playRandomMiniGame() {
             cout << "\n Hangman:\n";
             return playHangman();
         case 2:
-            cout << "\n Crossword:\n";
-            return playCrossword();
-        case 3:
             cout << "\n Rock, Paper, Scissors:\n";
             return playRockPaperScissors();
         default:
