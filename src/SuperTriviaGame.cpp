@@ -105,9 +105,11 @@ void SuperTriviaGame::start() {
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
                 if (wonMiniGame) {
+                    clearConsole();
                     powerUp.choosePower();
                     applyPowerUpEffect();
                 } else {
+                    clearConsole();
                     cout << "\nNo Power-Up earned. Continuing with trivia...\n";
                 }
             }
@@ -120,11 +122,13 @@ void SuperTriviaGame::start() {
             answer = toupper(answer);
 
             if (questions[i].checkAnswer(answer)) {
+                clearConsole();
                 cout << "Correct!\n";
                 int pointsToAdd = 1;
                 if (doublePointsActive) pointsToAdd = 2;
                 correctAnswers += pointsToAdd;
             } else {
+                clearConsole();
                 cout << "Incorrect.\n";
                 if (extraLifeActive) {
                     cout << "You have an extra life! Try again: ";
