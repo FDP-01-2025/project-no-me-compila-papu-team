@@ -170,6 +170,11 @@ void SuperTriviaGame::start() {
                     cin.get();
                 }
             }
+
+            // Deactivate power-ups after each question
+            if (doublePointsActive) doublePointsActive = false;
+            if (reducedOptionsActive) reducedOptionsActive = false;
+            if (revealHintActive) revealHintActive = false;
         }
 
         showFinalResults();
