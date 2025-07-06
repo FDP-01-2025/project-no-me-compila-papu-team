@@ -1,0 +1,102 @@
+F|What does CPU stand for?|Central Processing Unit|Computer Power Unit|Control Panel Unit|Central Program Unit|A
+F|Which one is an input device?|Keyboard|Monitor|Printer|Speaker|A
+F|What is 5 + 7?|10|11|12|13|C
+F|Which is a web browser?|Chrome|Windows|Intel|Excel|A
+F|What number system is binary based on?|Base 2|Base 8|Base 10|Base 16|A
+F|Which part of the computer shows visual output?|Monitor|Keyboard|CPU|Hard Disk|A
+F|HTML is used to create?|Web Pages|Programs|Videos|Apps|A
+F|Which of these is a storage device?|Hard Drive|Mouse|Monitor|Speaker|A
+F|Which one is an operating system?|Linux|Google|Chrome|USB|A
+F|2 * 6 = ?|8|10|12|14|C
+F|Which of these is used for typing?|Keyboard|Monitor|Mouse|Printer|A
+F|A computer mouse is an?|Input Device|Output Device|Storage|Processing Unit|A
+F|Which file extension is for images?|.jpg|.docx|.mp3|.exe|A
+F|What language is used to style web pages?|CSS|HTML|Python|SQL|A
+F|How many bits are in a byte?|4|8|16|32|B
+F|The result of 3 squared is?|6|9|12|3|B
+F|Which is an even number?|3|5|7|8|D
+F|Main brain of the computer?|CPU|RAM|Hard Disk|Mouse|A
+F|What is 20 - 8?|10|11|12|13|C
+F|Google Chrome is a?|Browser|OS|Language|Game|A
+F|Which of these is portable storage?|USB|Monitor|Keyboard|Speaker|A
+F|Which symbol is used for addition?|+|-|*|/|A
+F|What does RAM mean?|Random Access Memory|Rapid Action Machine|Run All Memory|Real Application Memory|A
+F|How many legs does a triangle have?|2|3|4|5|B
+F|Which of these is NOT a programming language?|Python|Java|HTML|Excel|D
+F|Which one shows printed output?|Printer|Mouse|Keyboard|Camera|A
+F|A KB is larger than?|Byte|MB|GB|TB|A
+F|Result of 6/3?|1|2|3|4|B
+F|What’s used to store files permanently?|Hard Drive|RAM|CPU|Cache|A
+F|Which language runs in a browser?|JavaScript|Python|C++|SQL|A
+F|What is 9 + 1?|8|9|10|11|C
+F|Which key deletes characters?|Backspace|Enter|Shift|Tab|A
+F|Which part handles arithmetic?|ALU|RAM|ROM|Cache|A
+F|.mp3 files are?|Audio|Video|Text|Images|A
+M|What is the value of π (pi) to two decimals?|3.12|3.14|3.15|3.16|B
+M|Which of these is NOT a programming language?|Python|Ruby|MySQL|Java|C
+M|What does RAM stand for?|Read Access Memory|Random Access Memory|Run All Memory|Real Application Memory|B
+M|What device stores permanent memory?|Hard Drive|RAM|CPU|Monitor|A
+M|Which of the following is NOT an input device?|Scanner|Monitor|Keyboard|Mouse|B
+M|Which is a loop structure in programming?|for|if|switch|case|A
+M|What does SSD stand for?|Solid State Drive|Smart Storage Device|Super Speed Drive|Static Storage Device|A
+M|Which number is prime?|4|6|9|7|D
+M|Which HTML tag creates a link?|<a>|<link>|<url>|<href>|A
+M|What is 15 * 2?|25|30|35|40|B
+M|Which is a conditional statement?|if|loop|function|print|A
+M|What is the square root of 64?|6|8|10|12|B
+M|How many bytes are in a kilobyte (approx)?|512|1000|1024|2048|C
+M|Which device displays output?|Printer|Scanner|Keyboard|Speaker|A
+M|Which of these is an interpreted language?|C++|Assembly|Python|Java|C
+M|What protocol is used for web pages?|HTTP|FTP|SMTP|SSH|A
+M|The brain of the computer is called?|CPU|RAM|Monitor|Disk|A
+M|Which shape has 4 equal sides?|Triangle|Rectangle|Circle|Square|D
+M|Which is a logic gate?|AND|XOR|NOT|All|D
+M|Function to get input in C++?|cin|input|scan|get|A
+M|What is the binary of 5?|100|101|110|111|B
+M|Which language uses indentation?|Python|C|C++|Java|A
+M|What device connects networks?|Router|Switch|Cable|Disk|A
+M|What does GPU stand for?|Graphics Processing Unit|Graphical Protocol Unit|General Power Unit|Graphics Program Utility|A
+M|1 byte = ? bits|4|8|16|32|B
+M|Which one is not software?|Browser|Compiler|Operating System|RAM|D
+M|Result of 10^2?|10|100|1000|10000|B
+M|Loop that runs at least once?|do-while|while|for|if|A
+M|Which tool is used to find bugs?|Debugger|Editor|Compiler|Linker|A
+M|What is the output device?|Monitor|Keyboard|Mouse|Touchpad|A
+M|What unit measures frequency?|Hertz|Watt|Ohm|Volt|A
+M|Which is a database system?|MySQL|Python|HTML|C++|A
+M|Which is NOT a binary number?|101|1000|23|111|C
+M|Which shape has 360 degrees?|Square|Triangle|Circle|Pentagon|C
+A|Which algorithm is used for shortest path in graphs?|Prim's|Kruskal's|Dijkstra's|A*|C
+A|Which of these is a NP-complete problem?|Traveling Salesman|Sorting|Binary Search|Addition|A
+A|What is Big-O notation for binary search?|O(1)|O(n)|O(log n)|O(n log n)|C
+A|What is the derivative of sin(x)?|cos(x)|-cos(x)|sin(x)|-sin(x)|A
+A|What data structure uses FIFO?|Queue|Stack|Tree|Graph|A
+A|Which language is best for system programming?|Python|Java|C|HTML|C
+A|Which protocol is secure for web?|HTTP|FTP|HTTPS|SSH|C
+A|Which is not part of OS kernel?|Scheduler|Memory Manager|Compiler|File System|C
+A|Binary of 15?|1110|1111|1101|1011|B
+A|Which gate returns true if inputs differ?|AND|XOR|OR|NOT|B
+A|Which is a recursive algorithm?|Merge Sort|Selection Sort|Bubble Sort|Insertion Sort|A
+A|Which type of memory is volatile?|RAM|ROM|SSD|Hard Drive|A
+A|Which data structure is LIFO?|Queue|Stack|List|Tree|B
+A|Which search algorithm is divide-and-conquer?|Linear|Binary|Jump|DFS|B
+A|In C++, what is used to define a class?|class|struct|object|method|A
+A|Result of derivative of cos(x)?|-sin(x)|cos(x)|-cos(x)|sin(x)|A
+A|Which sort has best average case?|Quick Sort|Bubble Sort|Selection Sort|Insertion Sort|A
+A|Which one is O(n^2)?|Bubble Sort|Binary Search|Merge Sort|Quick Sort|A
+A|What’s the integral of 1/x?|x|ln(x)|1|e^x|B
+A|Which model uses hidden states?|Markov|Naive Bayes|Linear|Decision Tree|A
+A|What is 2^10?|512|1024|2048|4096|B
+A|Which of these is not OOP concept?|Inheritance|Encapsulation|Recursion|Polymorphism|C
+A|Which is not SQL keyword?|SELECT|WHERE|INSERT|SWITCH|D
+A|Which protocol is for emails?|SMTP|HTTP|FTP|SSH|A
+A|What is derivative of e^x?|e^x|1|x|ln(x)|A
+A|Which logic gate returns true only if both inputs are true?|AND|OR|XOR|NOT|A
+A|Which language supports pointers?|Python|Java|C++|HTML|C
+A|Which is NOT an OS?|Linux|Windows|Google|macOS|C
+A|Which network topology uses a central hub?|Star|Ring|Bus|Mesh|A
+A|Time complexity of Merge Sort?|O(n log n)|O(n)|O(n^2)|O(1)|A
+A|Best-case of Quick Sort?|O(n log n)|O(n)|O(n^2)|O(log n)|A
+A|Which key opens command prompt in Windows?|Win+R|Ctrl+R|Alt+F4|Ctrl+Alt+Del|A
+A|What is IP address used for?|Identify devices|Send emails|Open files|Edit programs|A
+A|Which one is scripting language?|Python|C|C++|Java|A
