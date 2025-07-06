@@ -108,6 +108,7 @@ void SuperTriviaGame::start() {
                     clearConsole();
                     powerUp.choosePower();
                     applyPowerUpEffect();
+                    clearConsole(); // Clear after power-up is applied
                 } else {
                     clearConsole();
                     cout << "\nNo Power-Up earned. Continuing with trivia...\n";
