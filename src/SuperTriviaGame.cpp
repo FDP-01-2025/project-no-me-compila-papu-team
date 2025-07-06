@@ -1,4 +1,5 @@
 #include "SuperTriviaGame.h"
+#include "SpriteDisplay.h"
 #include <iostream>
 #include <cctype>
 
@@ -16,7 +17,6 @@ SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10),
     doublePointsActive(false), reducedOptionsActive(false),
     extraLifeActive(false), revealHintActive(false)
 {
-    // Cargar preguntas de archivo al crear juego
     if (!questionManager.loadFromFile("trivia_data.txt")) {
         cout << "Error loading trivia questions file!\n";
     }
@@ -79,7 +79,11 @@ void SuperTriviaGame::askPlayAgain(bool &playAgain) {
 
 void SuperTriviaGame::start() {
     clearConsole();
-    cout << "=== Welcome to the Super Trivia Game! ===\n";
+    displayWelcomeMessage();
+    cin.ignore();
+    cin.get(); // Espera que el jugador presione una tecla
+    clearConsole();
+
     player.inputPlayerInfo();
 
     bool playAgain = true;
@@ -93,29 +97,26 @@ void SuperTriviaGame::start() {
         cin >> level;
         level = toupper(level);
 
-        // Obtener 10 preguntas aleatorias de nivel
         auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
 
         for (int i = 0; i < totalQuestions; ++i) {
             clearConsole();
             cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
             cout << "Score: " << correctAnswers << "\n\n";
-            
-            // Cada 3 preguntas, insertar minijuego
+
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
                 if (wonMiniGame) {
                     clearConsole();
                     powerUp.choosePower();
                     applyPowerUpEffect();
-                    clearConsole(); // Clear after power-up is applied
+                    clearConsole();
                 } else {
                     clearConsole();
                     cout << "\nNo Power-Up earned. Continuing with trivia...\n";
                 }
             }
 
-            // Always show question info after mini-games or at start
             clearConsole();
             cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
             cout << "Score: " << correctAnswers << "\n\n";
@@ -130,9 +131,8 @@ void SuperTriviaGame::start() {
             if (questions[i].checkAnswer(answer)) {
                 clearConsole();
                 cout << "Correct!\n";
-                int pointsToAdd = 1;
+                int pointsToAdd = doublePointsActive ? 2 : 1;
                 if (doublePointsActive) {
-                    pointsToAdd = 2;
                     cout << "DOUBLE POINTS! +" << pointsToAdd << " points\n";
                 }
                 correctAnswers += pointsToAdd;
@@ -145,7 +145,6 @@ void SuperTriviaGame::start() {
                 cout << "The correct answer was: " << questions[i].getCorrectAnswer() << "\n";
                 if (extraLifeActive) {
                     cout << "You have an extra life! Try again: ";
-                    // Redisplay the question for the extra life attempt
                     clearConsole();
                     cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
                     cout << "Score: " << correctAnswers << "\n\n";
@@ -155,9 +154,8 @@ void SuperTriviaGame::start() {
                     answer = toupper(answer);
                     if (questions[i].checkAnswer(answer)) {
                         cout << "Correct!\n";
-                        int pointsToAdd = 1;
+                        int pointsToAdd = doublePointsActive ? 2 : 1;
                         if (doublePointsActive) {
-                            pointsToAdd = 2;
                             cout << "DOUBLE POINTS! +" << pointsToAdd << " points\n";
                         }
                         correctAnswers += pointsToAdd;
@@ -168,7 +166,6 @@ void SuperTriviaGame::start() {
                     cout << "Press any key to continue...";
                     cin.ignore();
                     cin.get();
-                    // Extra life used once, deactivate it
                     extraLifeActive = false;
                 } else {
                     cout << "Press any key to continue...";
@@ -177,10 +174,9 @@ void SuperTriviaGame::start() {
                 }
             }
 
-            // Deactivate power-ups after each question (except extra life which is handled above)
-            if (doublePointsActive) doublePointsActive = false;
-            if (reducedOptionsActive) reducedOptionsActive = false;
-            if (revealHintActive) revealHintActive = false;
+            doublePointsActive = false;
+            reducedOptionsActive = false;
+            revealHintActive = false;
         }
 
         showFinalResults();

@@ -3,5 +3,5 @@
 
 void displayHappySprite();
 void displayAngrySprite();
-
+void displayWelcomeMessage();
 #endif
