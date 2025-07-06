@@ -1,11 +1,11 @@
-# Makefile for "¿Quién quiere dejar de ser pobre?" Project
+# Makefile for Super Trivia Game Project
 # Author: No me compila papu team 
 # Language: C++
 
 # Compiler settings
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -O2
-TARGET = game_collection
+TARGET = trivia_game
 SRCDIR = src
 OBJDIR = obj
 
@@ -34,11 +34,6 @@ clean:
 	rm -rf $(OBJDIR) $(TARGET)
 	@echo "Clean complete!"
 
-# Create data directories and default files
-setup:
-	mkdir -p $(SRCDIR)/game_data
-	@echo "Setup complete!"
-
 # Run the program
 run: $(TARGET)
 	./$(TARGET)
@@ -52,9 +47,8 @@ help:
 	@echo "Available targets:"
 	@echo "  all     - Build the project (default)"
 	@echo "  clean   - Remove build files"
-	@echo "  setup   - Create necessary directories"
 	@echo "  run     - Build and run the program"
 	@echo "  debug   - Build with debug symbols"
 	@echo "  help    - Show this help message"
 
-.PHONY: all clean setup run debug help 
+.PHONY: all clean run debug help 
