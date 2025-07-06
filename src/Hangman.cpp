@@ -16,6 +16,14 @@ private:
     string guessedWord;
     vector<char> wrongGuesses;
 
+    void clearConsole() {
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    }
+
     string pickRandomWord() {
         ifstream file("words.txt");
         vector<string> words;
@@ -32,6 +40,7 @@ private:
     }
 
     void drawState() {
+        clearConsole();
         drawHangman();
 
         cout << "\nWord: ";
