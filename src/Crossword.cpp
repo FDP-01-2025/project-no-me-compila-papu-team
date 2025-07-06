@@ -17,6 +17,14 @@ private:
     vector<pair<int, int>> positions;
     vector<char> directions; // 'H' = horizontal, 'V' = vertical
 
+    void clearConsole() {
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    }
+
     vector<string> loadWords() {
         ifstream file("words.txt");
         vector<string> words;
@@ -131,7 +139,11 @@ public:
             bool found = false;
             for (size_t i = 0; i < placedWords.size(); ++i) {
                 if (!guessed[i] && placedWords[i] == guess) {
+                    clearConsole();
                     cout << " Correct!\n";
+                    drawBoard();
+                    giveClues();
+                    cout << "\nFound: " << correct + 1 << "/" << placedWords.size() << " words\n";
                     guessed[i] = true;
                     correct++;
                     found = true;
