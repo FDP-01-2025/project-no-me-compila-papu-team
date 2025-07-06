@@ -12,6 +12,14 @@ public:
     char playerMark = 'X';
     char computerMark = 'O';
 
+    void clearConsole() {
+        #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
+    }
+
     InternalTicTacToe() {
         board = vector<char>(9, ' ');
         srand(time(0));
@@ -97,6 +105,7 @@ public:
         while (true) {
             int player = getPlayerMove();
             board[player] = playerMark;
+            clearConsole();
             drawBoard();
             if (isWinner(playerMark)) {
                 cout << "You win!" << endl;
@@ -109,6 +118,7 @@ public:
 
             int comp = getComputerMove();
             board[comp] = computerMark;
+            clearConsole();
             cout << "Computer chose position " << (comp + 1) << endl;
             drawBoard();
             if (isWinner(computerMark)) {
