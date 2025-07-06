@@ -4,7 +4,7 @@
 class TicTacToe {
 public:
     TicTacToe();        // Constructor
-    void play();        // Ejecuta el juego
+    bool play();        // Ejecuta el juego, retorna true si gana el jugador
 };
 
 #endif

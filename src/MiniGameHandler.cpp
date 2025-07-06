@@ -12,9 +12,7 @@ using namespace std;
 // Function implementations for the mini-games
 bool playTicTacToe() {
     TicTacToe game;
-    game.play();
-    // For simplicity, assume player wins if they complete the game
-    return true;
+    return game.play(); // Now returns true only if player wins
 }
 
 bool playHangman() {

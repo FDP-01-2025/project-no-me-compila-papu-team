@@ -137,7 +137,40 @@ public:
 
 TicTacToe::TicTacToe() {}
 
-void TicTacToe::play() {
+bool TicTacToe::play() {
     InternalTicTacToe game;
-    game.run();
+    // Modified run() to return true if player wins, false otherwise
+    bool playerWon = false;
+    cout << "Welcome to Tic-Tac-Toe!" << endl;
+    game.drawBoard();
+    while (true) {
+        int player = game.getPlayerMove();
+        game.board[player] = game.playerMark;
+        game.clearConsole();
+        game.drawBoard();
+        if (game.isWinner(game.playerMark)) {
+            cout << "You win!" << endl;
+            playerWon = true;
+            break;
+        }
+        if (game.isFull()) {
+            cout << "It's a tie!" << endl;
+            break;
+        }
+
+        int comp = game.getComputerMove();
+        game.board[comp] = game.computerMark;
+        game.clearConsole();
+        cout << "Computer chose position " << (comp + 1) << endl;
+        game.drawBoard();
+        if (game.isWinner(game.computerMark)) {
+            cout << "Computer wins!" << endl;
+            break;
+        }
+        if (game.isFull()) {
+            cout << "It's a tie!" << endl;
+            break;
+        }
+    }
+    return playerWon;
 }
