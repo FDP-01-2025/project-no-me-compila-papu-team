@@ -44,17 +44,30 @@ bool MiniGameHandler::playRandomMiniGame() {
     srand(time(0));
     int choice = rand() % 3;
 
-    cout << "\n Starting a mini-game challenge!\n";
+    cout << "\n🎮 MINI-GAME CHALLENGE! 🎮\n";
+    cout << "Win this mini-game to earn a Power-Up!\n";
+    cout << "Press any key to start...";
+    cin.ignore();
+    cin.get();
 
     switch (choice) {
         case 0:
-            cout << "\n Tic Tac Toe:\n";
+            cout << "\n🎯 TIC TAC TOE CHALLENGE 🎯\n";
+            cout << "Play against the computer. Get 3 in a row to win!\n";
+            cout << "Press any key to begin...";
+            cin.get();
             return playTicTacToe();
         case 1:
-            cout << "\n Hangman:\n";
+            cout << "\n🎭 HANGMAN CHALLENGE 🎭\n";
+            cout << "Guess the word before the hangman is complete!\n";
+            cout << "Press any key to begin...";
+            cin.get();
             return playHangman();
         case 2:
-            cout << "\n Rock, Paper, Scissors:\n";
+            cout << "\n✂️ ROCK PAPER SCISSORS CHALLENGE ✂️\n";
+            cout << "Beat the computer in this classic game!\n";
+            cout << "Press any key to begin...";
+            cin.get();
             return playRockPaperScissors();
         default:
             return false;
