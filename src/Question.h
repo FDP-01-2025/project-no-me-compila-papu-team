@@ -13,6 +13,7 @@ struct Question {
     Question() = default;
     void display(bool reducedOptions = false, bool showHint = false) const;
     bool checkAnswer(char answer) const;
+    std::string getCorrectAnswer() const;
 };
 
 class QuestionManager {

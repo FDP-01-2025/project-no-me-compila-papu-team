@@ -38,6 +38,10 @@ bool Question::checkAnswer(char answer) const {
     return toupper(answer) == correctAnswer;
 }
 
+std::string Question::getCorrectAnswer() const {
+    return options[correctAnswer - 'A'];
+}
+
 bool QuestionManager::loadFromFile(const string& filename) {
     ifstream file(filename);
     if (!file.is_open()) return false;
