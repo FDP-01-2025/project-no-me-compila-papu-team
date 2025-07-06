@@ -158,29 +158,45 @@ RPSGame::RPSGame() {}
 bool RPSGame::play() {
     RPSInternal game;
     srand(time(0));
-    cout << " Rock, Paper, Scissors - Best of 1!\n";
-    cout << "Choose your move:\n";
-    cout << "0 - Rock\n1 - Paper\n2 - Scissors\n";
-    int playerMove;
-    while (true) {
-        cout << "Your choice: ";
-        cin >> playerMove;
-        if (playerMove >= 0 && playerMove <= 2) break;
-        cout << "Invalid input. Try again.\n";
+    int playerScore = 0, computerScore = 0;
+    for (int round = 1; round <= 3; ++round) {
+        cout << "\nRock, Paper, Scissors - Round " << round << " of 3\n";
+        cout << "Choose your move:\n";
+        cout << "0 - Rock\n1 - Paper\n2 - Scissors\n";
+        int playerMove;
+        while (true) {
+            cout << "Your choice: ";
+            cin >> playerMove;
+            if (playerMove >= 0 && playerMove <= 2) break;
+            cout << "Invalid input. Try again.\n";
+        }
+        int computerMove = rand() % 3;
+        game.drawHands(playerMove, computerMove);
+        // Determine round winner
+        if (playerMove == computerMove) {
+            cout << "\nIt's a tie for this round!\n";
+        } else if ((playerMove == 0 && computerMove == 2) ||
+                   (playerMove == 1 && computerMove == 0) ||
+                   (playerMove == 2 && computerMove == 1)) {
+            cout << "\nYou win this round!\n";
+            playerScore++;
+        } else {
+            cout << "\nComputer wins this round!\n";
+            computerScore++;
+        }
+        cout << "Press any key to continue...";
+        cin.ignore();
+        cin.get();
     }
-    int computerMove = rand() % 3;
-    game.drawHands(playerMove, computerMove);
-    // Return true if player wins
-    if (playerMove == computerMove) {
-        cout << "\n It's a tie!\n";
-        return false;
-    } else if ((playerMove == 0 && computerMove == 2) ||
-               (playerMove == 1 && computerMove == 0) ||
-               (playerMove == 2 && computerMove == 1)) {
-        cout << "\n You win!\n";
+    // Show overall winner
+    if (playerScore > computerScore) {
+        cout << "\nYou win the mini-game!\n";
         return true;
+    } else if (computerScore > playerScore) {
+        cout << "\nComputer wins the mini-game!\n";
+        return false;
     } else {
-        cout << "\n Computer wins!\n";
+        cout << "\nIt's a tie in the mini-game!\n";
         return false;
     }
 }
