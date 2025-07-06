@@ -87,10 +87,6 @@ private:
         cout << "=========\n";
     }
 
-    bool isGameWon() {
-        return guessedWord == secretWord;
-    }
-
     bool isGameOver() {
         return wrongGuesses.size() >= MAX_ATTEMPTS;
     }

@@ -109,17 +109,6 @@ private:
         }
     }
 
-    void drawHands(int playerMove, int computerMove) {
-        clearConsole();
-        const string* left = getLeftArt(playerMove);
-        const string* right = getRightArt(computerMove);
-        cout << "\nYou chose: " << getMoveName(playerMove)
-             << "    VS    Computer chose: " << getMoveName(computerMove) << "\n\n";
-        for (int i = 0; i < 6; ++i) {
-            cout << left[i] << "   " << VS[i] << "   " << right[i] << endl;
-        }
-    }
-
     void decideWinner(int playerMove, int computerMove) {
         if (playerMove == computerMove) {
             cout << "\n It's a tie!\n";
@@ -133,6 +122,17 @@ private:
     }
 
 public:
+    void drawHands(int playerMove, int computerMove) {
+        clearConsole();
+        const string* left = getLeftArt(playerMove);
+        const string* right = getRightArt(computerMove);
+        cout << "\nYou chose: " << getMoveName(playerMove)
+             << "    VS    Computer chose: " << getMoveName(computerMove) << "\n\n";
+        for (int i = 0; i < 6; ++i) {
+            cout << left[i] << "   " << VS[i] << "   " << right[i] << endl;
+        }
+    }
+
     void run() {
         srand(time(0));
         cout << " Rock, Paper, Scissors - Best of 1!\n";
