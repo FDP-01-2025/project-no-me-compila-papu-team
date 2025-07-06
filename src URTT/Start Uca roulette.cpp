@@ -119,6 +119,59 @@ int main() {
                 currentBullet++;
                 this_thread::sleep_for(chrono::milliseconds(600));
             }
+
+            if (playerLives <= 0 || cpuLives <= 0 || currentBullet >= chamber.size()) break;
+
+            // === CPU TURN ===
+            bool cpuTurn = true;
+            while (cpuTurn && currentBullet < chamber.size() && playerLives > 0 && cpuLives > 0) {
+                cout << YELLOW << "\nCPU's turn...\n" << RESET;
+                cpuThinking();
+
+                int totalBullets = liveCount + blankCount;
+                int bulletsLeft = totalBullets - currentBullet;
+                int livesLeft = 0;
+                for (int i = currentBullet; i < totalBullets; ++i) {
+                    if (chamber[i]) livesLeft++;
+                }
+                int blanksLeft = bulletsLeft - livesLeft;
+                double risk = (double) livesLeft / bulletsLeft;
+
+                int cpuChoice;
+                if (risk >= 0.6) {
+                    cpuChoice = 1; // Too risky, shoot player
+                } else {
+                    cpuChoice = rand() % 2;
+                }
+
+                bool bullet = chamber[currentBullet];
+
+                if (cpuChoice == 0) {
+                    cout << "CPU aims at itself...\n";
+                    this_thread::sleep_for(chrono::milliseconds(700));
+                    if (bullet) {
+                        cout << RED << "💥 CPU shot itself!\n" << RESET;
+                        cpuLives--;
+                        cpuTurn = false;
+                    } else {
+                        cout << GREEN << "🔫 Click... CPU gets another turn!\n" << RESET;
+                        cpuTurn = true;
+                    }
+                } else {
+                    cout << "CPU aims at you...\n";
+                    this_thread::sleep_for(chrono::milliseconds(700));
+                    if (bullet) {
+                        cout << RED << "💥 CPU shot you!\n" << RESET;
+                        playerLives--;
+                    } else {
+                        cout << GREEN << "🔫 Click... you survive.\n" << RESET;
+                    }
+                    cpuTurn = false;
+                }
+
+                currentBullet++;
+                this_thread::sleep_for(chrono::milliseconds(600));
+            }
         }
     }
 
