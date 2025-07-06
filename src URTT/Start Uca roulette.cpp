@@ -57,3 +57,70 @@ void printStatus(int playerLives, int cpuLives) {
     cout << "CPU lives : " << cpuLives << endl;
     cout << "--------------------------------\n" << RESET;
 }
+
+int main() {
+    srand(time(0));
+
+    int playerLives = 4;
+    int cpuLives = 4;
+
+    while (playerLives > 0 && cpuLives > 0) {
+        int liveCount = 0;
+        int blankCount = 0;
+        vector<bool> chamber = loadShotgun(liveCount, blankCount);
+        int currentBullet = 0;
+
+        cout << YELLOW << "\n=== NEW ROUND ===\n" << RESET;
+        cout << "Bullets loaded: " << (liveCount + blankCount) << endl;
+        cout << "Live bullets  : " << liveCount << endl;
+        cout << "Blank bullets : " << blankCount << endl;
+
+        while (playerLives > 0 && cpuLives > 0 && currentBullet < chamber.size()) {
+            printStatus(playerLives, cpuLives);
+
+            // === PLAYER TURN ===
+            bool playerTurn = true;
+            while (playerTurn && currentBullet < chamber.size() && playerLives > 0 && cpuLives > 0) {
+                cout << "\nYour turn. Choose an option:\n";
+                cout << "1. Shoot yourself\n";
+                cout << "2. Shoot the CPU\n";
+                cout << "Choice: ";
+
+                int choice;
+                cin >> choice;
+
+                bool bullet = chamber[currentBullet];
+                cout << "\nYou pulled the trigger..." << endl;
+
+                this_thread::sleep_for(chrono::milliseconds(800));
+
+                if (choice == 1) {
+                    if (bullet) {
+                        cout << RED << "💥 BOOM! You shot yourself!\n" << RESET;
+                        playerLives--;
+                        playerTurn = false;
+                    } else {
+                        cout << GREEN << "🔫 Click... it was blank. You get another turn!\n" << RESET;
+                        playerTurn = true;
+                    }
+                } else if (choice == 2) {
+                    if (bullet) {
+                        cout << RED << "💥 BOOM! CPU takes the hit!\n" << RESET;
+                        cpuLives--;
+                    } else {
+                        cout << GREEN << "🔫 Click... it was blank. CPU survives.\n" << RESET;
+                    }
+                    playerTurn = false;
+                } else {
+                    cout << "Invalid option. You lost your turn.\n";
+                    playerTurn = false;
+                }
+
+                currentBullet++;
+                this_thread::sleep_for(chrono::milliseconds(600));
+            }
+        }
+    }
+
+    return 0;
+}
