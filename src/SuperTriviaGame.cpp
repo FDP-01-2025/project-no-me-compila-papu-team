@@ -133,6 +133,12 @@ void SuperTriviaGame::start() {
                 cout << "Incorrect.\n";
                 if (extraLifeActive) {
                     cout << "You have an extra life! Try again: ";
+                    // Redisplay the question for the extra life attempt
+                    clearConsole();
+                    cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
+                    cout << "Score: " << correctAnswers << "\n\n";
+                    questions[i].display(reducedOptionsActive, revealHintActive);
+                    cout << "Your answer: ";
                     cin >> answer;
                     answer = toupper(answer);
                     if (questions[i].checkAnswer(answer)) {
