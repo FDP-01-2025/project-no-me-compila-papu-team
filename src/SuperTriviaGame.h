@@ -31,6 +31,9 @@ private:
 public:
     SuperTriviaGame();
     void start();
+    void showAllScores();
+    void playGame();
+    void play();
 };
 
 #endif
