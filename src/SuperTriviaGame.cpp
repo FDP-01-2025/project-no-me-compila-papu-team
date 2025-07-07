@@ -92,12 +92,22 @@ void SuperTriviaGame::start() {
         resetPowerUps();
         correctAnswers = 0;
 
-        char level;
-        cout << "\nSelect difficulty level: (F) Easy, (M) Medium, (A) Advanced: ";
-        cin >> level;
-        level = toupper(level);
+    char level;
+while (true) {
+    cout << "\nSelect difficulty level:\n";
+    cout << "F - Easy\nM - Medium\nA - Advanced\n";
+    cout << "Enter your choice: ";
+    cin >> level;
+    level = toupper(level);
 
-        auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
+    if (level == 'F' || level == 'M' || level == 'A') { 
+        break;
+    } else {
+        cout << "Invalid input. Please enter F, M, or A.\n\n";
+    }
+}
+
+auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
 
         for (int i = 0; i < totalQuestions; ++i) {
             clearConsole();

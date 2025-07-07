@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
+#include <vector>
 
 using namespace std;
 

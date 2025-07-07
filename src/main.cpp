@@ -1,5 +1,5 @@
 #include "SuperTriviaGame.h"
-#include "all_implementations.cpp"
+#include "all_implementations.h"
 
 int main() {
     SuperTriviaGame game;

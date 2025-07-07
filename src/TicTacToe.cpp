@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <limits>
 
 using namespace std;
 
@@ -118,15 +119,28 @@ public:
 
             int comp = getComputerMove();
             board[comp] = computerMark;
-            clearConsole();
+
             cout << "Computer chose position " << (comp + 1) << endl;
             drawBoard();
+            cout << "Press any key to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
+
+            clearConsole();
+            drawBoard();
+
             if (isWinner(computerMark)) {
                 cout << "Computer wins!" << endl;
+                cout << "Press any key to continue...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
                 break;
             }
             if (isFull()) {
                 cout << "It's a tie!" << endl;
+                cout << "Press any key to continue...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
                 break;
             }
         }
@@ -139,7 +153,6 @@ TicTacToe::TicTacToe() {}
 
 bool TicTacToe::play() {
     InternalTicTacToe game;
-    // Modified run() to return true if player wins, false otherwise
     bool playerWon = false;
     cout << "Welcome to Tic-Tac-Toe!" << endl;
     game.drawBoard();
@@ -155,20 +168,36 @@ bool TicTacToe::play() {
         }
         if (game.isFull()) {
             cout << "It's a tie!" << endl;
+            cout << "Press any key to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             break;
         }
 
         int comp = game.getComputerMove();
         game.board[comp] = game.computerMark;
-        game.clearConsole();
+
         cout << "Computer chose position " << (comp + 1) << endl;
         game.drawBoard();
+        cout << "Press any key to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+
+        game.clearConsole();
+        game.drawBoard();
+
         if (game.isWinner(game.computerMark)) {
             cout << "Computer wins!" << endl;
+            cout << "Press any key to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             break;
         }
         if (game.isFull()) {
             cout << "It's a tie!" << endl;
+            cout << "Press any key to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             break;
         }
     }

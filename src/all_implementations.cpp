@@ -14,7 +14,6 @@
 #include "preguntas.cpp"
 #include "potenciadores.cpp"
 #include "sprite.cpp"
-#include "Crossword.cpp"
 #include "Hangman.cpp"
 #include "RPSGame.cpp"
 #include "TicTacToe.cpp"
