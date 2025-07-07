@@ -2,8 +2,6 @@
 #include "SpriteDisplay.h"
 #include <iostream>
 #include <cctype>
-#include <fstream>
-#include <iomanip>
 
 using namespace std;
 
@@ -79,33 +77,43 @@ void SuperTriviaGame::askPlayAgain(bool &playAgain) {
     }
 }
 
-void SuperTriviaGame::showAllScores() {
-    // Implementation of showAllScores method
-}
+void SuperTriviaGame::start() {
+    clearConsole();
+    displayWelcomeMessage();
+    cin.ignore();
+    cin.get(); // Espera que el jugador presione una tecla
+    clearConsole();
 
-void SuperTriviaGame::playGame() {
+    player.inputPlayerInfo();
+
     bool playAgain = true;
     while (playAgain) {
+        clearConsole();
         resetPowerUps();
         correctAnswers = 0;
-        char level;
-        while (true) {
-            cout << "\nSelect difficulty level:\n";
-            cout << "F - Easy\nM - Medium\nA - Advanced\n";
-            cout << "Enter your choice: ";
-            cin >> level;
-            level = toupper(level);
-            if (level == 'F' || level == 'M' || level == 'A') {
-                break;
-            } else {
-                cout << "Invalid input. Please enter F, M, or A.\n\n";
-            }
-        }
-        auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
+
+    char level;
+while (true) {
+    cout << "\nSelect difficulty level:\n";
+    cout << "F - Easy\nM - Medium\nA - Advanced\n";
+    cout << "Enter your choice: ";
+    cin >> level;
+    level = toupper(level);
+
+    if (level == 'F' || level == 'M' || level == 'A') { 
+        break;
+    } else {
+        cout << "Invalid input. Please enter F, M, or A.\n\n";
+    }
+}
+
+auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
+
         for (int i = 0; i < totalQuestions; ++i) {
             clearConsole();
             cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
             cout << "Score: " << correctAnswers << "\n\n";
+
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
                 if (wonMiniGame) {
@@ -118,14 +126,18 @@ void SuperTriviaGame::playGame() {
                     cout << "\nNo Power-Up earned. Continuing with trivia...\n";
                 }
             }
+
             clearConsole();
             cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
             cout << "Score: " << correctAnswers << "\n\n";
+
             questions[i].display(reducedOptionsActive, revealHintActive);
+
             cout << "Your answer: ";
             char answer;
             cin >> answer;
             answer = toupper(answer);
+
             if (questions[i].checkAnswer(answer)) {
                 clearConsole();
                 cout << "Correct!\n";
@@ -171,35 +183,15 @@ void SuperTriviaGame::playGame() {
                     cin.get();
                 }
             }
+
             doublePointsActive = false;
             reducedOptionsActive = false;
             revealHintActive = false;
         }
+
         showFinalResults();
         askPlayAgain(playAgain);
     }
+
     cout << "\nThanks for playing! Goodbye!\n";
 }
-
-void SuperTriviaGame::play() {
-    int menuChoice;
-    while (true) {
-        cout << "\nSuper Trivia Game Menu\n";
-        cout << "1. Play Trivia\n";
-        cout << "2. Show All Scores\n";
-        cout << "3. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> menuChoice;
-        if (menuChoice == 2) {
-            showAllScores();
-            continue;
-        } else if (menuChoice == 3) {
-            cout << "\nThanks for playing! Goodbye!\n";
-            break;
-        } else if (menuChoice == 1) {
-            playGame();
-        }
-    }
-}
-
-void
