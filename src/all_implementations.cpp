@@ -10,10 +10,10 @@
 #include "SuperTriviaGame.h"
 
 // Then include implementations in dependency order
-#include "jugador.cpp"
-#include "preguntas.cpp"
-#include "potenciadores.cpp"
-#include "sprite.cpp"
+#include "player.cpp"
+#include "questions.cpp"
+#include "powerups.cpp"
+#include "spritedisplay.cpp"
 #include "Hangman.cpp"
 #include "RPSGame.cpp"
 #include "TicTacToe.cpp"

@@ -11,7 +11,7 @@
 using namespace std;
 
 void Question::display(bool reducedOptions, bool showHint) const {
-    // Usar la nueva interfaz mejorada
+    // Use the new improved interface
     vector<string> displayOptions = options;
     
     if (reducedOptions) {
@@ -25,7 +25,7 @@ void Question::display(bool reducedOptions, bool showHint) const {
         indices.push_back(wrong[rand() % wrong.size()]);
         shuffle(indices.begin(), indices.end(), default_random_engine(rand()));
         
-        // Crear opciones reducidas
+        // Create reduced options
         vector<string> reducedOptions;
         for (int i : indices) {
             reducedOptions.push_back(options[i]);
@@ -34,11 +34,11 @@ void Question::display(bool reducedOptions, bool showHint) const {
     }
 
     if (showHint) {
-        // Agregar pista a la pregunta
-        string questionWithHint = question + "\n💡 Pista: La respuesta correcta es la opción " + correctAnswer;
-        displayQuestionBox(questionWithHint, displayOptions, 0, 0, 0); // Los parámetros se pasarán desde SuperTriviaGame
+        // Add hint to the question
+        string questionWithHint = question + "\n💡 Hint: The correct answer is option " + correctAnswer;
+        displayQuestionBox(questionWithHint, displayOptions, 0, 0, 0); // Parameters will be passed from SuperTriviaGame
     } else {
-        displayQuestionBox(question, displayOptions, 0, 0, 0); // Los parámetros se pasarán desde SuperTriviaGame
+        displayQuestionBox(question, displayOptions, 0, 0, 0); // Parameters will be passed from SuperTriviaGame
     }
 }
 

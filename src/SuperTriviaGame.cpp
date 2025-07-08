@@ -13,9 +13,9 @@ void clearConsole() {
     #endif
 }
 
-SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10),
+SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10), requiredToWin(7),
     doublePointsActive(false), reducedOptionsActive(false),
-    extraLifeActive(false), revealHintActive(false)
+    extraLifeActive(false), revealHintActive(false), rewardLevel(0)
 {
     if (!questionManager.loadFromFile("data/trivia_data.txt")) {
         cout << "Error loading trivia questions file!\n";
@@ -41,7 +41,9 @@ void SuperTriviaGame::applyPowerUpEffect() {
 }
 
 void SuperTriviaGame::showFinalResults() {
-    displayFinalResults(player.getFullName(), correctAnswers, totalQuestions);
+    calculateReward();
+    displayFinalResults(player.getFullName(), correctAnswers, totalQuestions, requiredToWin, rewardLevel);
+    offerRevengeGame();
 }
 
 void SuperTriviaGame::askPlayAgain(bool &playAgain) {
@@ -63,14 +65,56 @@ void SuperTriviaGame::askPlayAgain(bool &playAgain) {
     }
 }
 
+void SuperTriviaGame::calculateReward() {
+    if (correctAnswers >= 10) {
+        rewardLevel = 3;  // Chocolate bar
+    } else if (correctAnswers >= 7) {
+        rewardLevel = 2;  // 2 small chocolates
+    } else if (correctAnswers >= 4) {
+        rewardLevel = 1;  // 1 small chocolate
+    } else {
+        rewardLevel = 0;  // No reward
+    }
+}
+
+void SuperTriviaGame::offerRevengeGame() {
+    if (correctAnswers < requiredToWin && correctAnswers >= 4) {
+        cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+        cout << "║                              🎲 REVENGE GAME 🎲                              ║\n";
+        cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+        cout << "║                                                                              ║\n";
+        cout << "║  🎯 You didn't reach the minimum score, but you can try a revenge game!    ║\n";
+        cout << "║  🏆 Win to get a better reward! Lose and get nothing!                      ║\n";
+        cout << "║                                                                              ║\n";
+        cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "\nDo you want to play the revenge game? (Y/N): ";
+        
+        char choice;
+        cin >> choice;
+        choice = toupper(choice);
+        
+        if (choice == 'Y') {
+            bool wonRevenge = miniGameHandler.playRandomMiniGame();
+            if (wonRevenge) {
+                cout << "\n🎉 You won the revenge game! Your reward has been upgraded!\n";
+                if (rewardLevel == 1) rewardLevel = 2;
+                else if (rewardLevel == 0) rewardLevel = 1;
+            } else {
+                cout << "\n❌ You lost the revenge game. No reward for you!\n";
+                rewardLevel = 0;
+            }
+        }
+    }
+}
+
 void SuperTriviaGame::start() {
     clearConsole();
     displayWelcomeMessage();
     cin.ignore();
-    cin.get(); // Espera que el jugador presione una tecla
+    cin.get(); // Wait for the player to press a key
     clearConsole();
 
-    // Mostrar opciones del menú principal
+    // Show main menu options
     char menuChoice;
     while (true) {
         displayMainMenu();
@@ -129,25 +173,25 @@ void SuperTriviaGame::start() {
                 }
             }
 
-            // Mostrar pregunta con nueva interfaz
+            // Show question with new interface
             clearConsole();
             displayProgressBar(i + 1, totalQuestions);
             
             cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
             cout << "║                              🧠 PREGUNTA " << (i + 1) << "/" << totalQuestions << " 🧠                          ║\n";
-            cout << "║                              📊 Puntuación: " << correctAnswers << " puntos 📊                        ║\n";
+            cout << "║                              📊 Score: " << correctAnswers << " points 📊                        ║\n";
             cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
             cout << "║                                                                              ║\n";
             
-            // Mostrar pregunta con formato
+            // Show question with formatted output
             cout << "║  " << questions[i].question << "\n";
             cout << "║                                                                              ║\n";
             
-            // Mostrar opciones con formato mejorado
+            // Show options with improved formatting
             char optionLetters[] = {'A', 'B', 'C', 'D'};
             for (int j = 0; j < questions[i].options.size(); j++) {
                 cout << "║  🎯 " << optionLetters[j] << ") " << questions[i].options[j];
-                // Rellenar espacios para mantener alineación
+                // Fill spaces to keep alignment
                 int spaces = 70 - questions[i].options[j].length();
                 for (int k = 0; k < spaces; k++) cout << " ";
                 cout << " ║\n";
@@ -163,7 +207,7 @@ void SuperTriviaGame::start() {
                 cin >> answer;
                 answer = toupper(answer);
                 
-                // Validar que la respuesta sea una opción válida (A, B, C, D)
+                // Validate that the answer is a valid option (A, B, C, D)
                 if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
                     validAnswer = true;
                 } else {
@@ -195,7 +239,7 @@ void SuperTriviaGame::start() {
                         cin >> answer;
                         answer = toupper(answer);
                         
-                        // Validar que la respuesta sea una opción válida (A, B, C, D)
+                        // Validate that the answer is a valid option (A, B, C, D)
                         if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
                             validAnswer = true;
                         } else {

@@ -14,7 +14,7 @@ void clearScreen() {
     #endif
 }
 
-// Función auxiliar para calcular el ancho visual de una cadena ignorando ANSI y contando emojis como doble
+// Helper function to calculate the visual width of a string ignoring ANSI and counting emojis as double
 int visualLength(const std::string& s) {
     std::string no_ansi = std::regex_replace(s, std::regex("\\033\\[[0-9;]*m"), "");
     int len = 0;
@@ -32,7 +32,7 @@ int visualLength(const std::string& s) {
     return len;
 }
 
-// Imprime una línea con padding y bordes
+// Print a line with padding and borders
 void printColoredLine(const std::string& content, int width = 100) {
     std::cout << "│";
     int vlen = visualLength(content);
@@ -41,7 +41,7 @@ void printColoredLine(const std::string& content, int width = 100) {
     std::cout << "│\n";
 }
 
-// Imprime una línea centrada visualmente, solo con borde izquierdo
+// Print a visually centered line, only with left border
 void printCenteredNoRightBorder(const std::string& content, int width = 100) {
     int vlen = visualLength(content);
     int left = (width - vlen) / 2;
@@ -50,7 +50,7 @@ void printCenteredNoRightBorder(const std::string& content, int width = 100) {
     std::cout << content << "\n";
 }
 
-// Imprime una caja de sección con título y líneas
+// Print a section box with title and lines
 void printSectionBox(const std::vector<std::string>& lines, int width = 100) {
     std::cout << "┌"; for (int i = 0; i < width-2; ++i) std::cout << "─"; std::cout << "┐\n";
     for (const auto& l : lines) printCenteredNoRightBorder(l, width);
@@ -59,7 +59,7 @@ void printSectionBox(const std::vector<std::string>& lines, int width = 100) {
 
 void displayWelcomeMessage() {
     clearScreen();
-    // Paleta sobria
+    // Sober palette
     const std::string BLUE = "\033[1;34m";
     const std::string CYAN = "\033[0;36m";
     const std::string WHITE = "\033[1;37m";
@@ -72,13 +72,13 @@ void displayWelcomeMessage() {
     printCenteredNoRightBorder(BLUE + "🎮 QUIEN QUIERE DEJAR DE SER POBRE? 🎯" + WHITE, WIDTH);
     printCenteredNoRightBorder(CYAN + "Game Collection" + WHITE, WIDTH);
     std::cout << "├"; for (int i = 0; i < WIDTH-2; ++i) std::cout << "─"; std::cout << "┤\n";
-    printCenteredNoRightBorder(GRAY + "🎉 ¡Bienvenido a nuestra emocionante colección de juegos! 🎉" + WHITE, WIDTH);
-    printCenteredNoRightBorder(GRAY + "🎯 ¡Juega, gana puntos y deja de ser pobre en conocimiento! 🎯" + WHITE, WIDTH);
+    printCenteredNoRightBorder(GRAY + "🎉 Welcome to our exciting game collection! 🎉" + WHITE, WIDTH);
+    printCenteredNoRightBorder(GRAY + "🎯 Play, earn points, and stop being poor in knowledge! ��" + WHITE, WIDTH);
     std::cout << "├"; for (int i = 0; i < WIDTH-2; ++i) std::cout << "─"; std::cout << "┤\n";
     printCenteredNoRightBorder(CYAN + "🧠 Trivia Challenge: Pon a prueba tus habilidades en Ciencia y Tech" + WHITE, WIDTH);
     printCenteredNoRightBorder(CYAN + "🎲 Mini-Games: Piedra-Papel-Tijeras, TicTacToe, Hangman..." + WHITE, WIDTH);
-    printCenteredNoRightBorder(CYAN + "⚡ Power-Ups: ¡Gana mini-juegos y obtén ventajas!" + WHITE, WIDTH);
-    printCenteredNoRightBorder(CYAN + "🏆 Sistema de Puntuación: ¡Compite por el mejor score!" + WHITE, WIDTH);
+    printCenteredNoRightBorder(CYAN + "⚡ Power-Ups: Win mini-games and get advantages!" + WHITE, WIDTH);
+    printCenteredNoRightBorder(CYAN + "🏆 Scoring System: Compete for the best score!" + WHITE, WIDTH);
     std::cout << "└"; for (int i = 0; i < WIDTH-2; ++i) std::cout << "─"; std::cout << "┘\n";
     printCenteredNoRightBorder(BLUE + "🎮 Presiona cualquier tecla para comenzar... 🎮" + WHITE, WIDTH);
     std::cout << RESET;
@@ -92,13 +92,13 @@ void displayMainMenu() {
     const int WIDTH = 100;
     clearScreen();
     std::vector<std::string> lines = {
-        BLUE + "MENÚ PRINCIPAL" + WHITE,
-        CYAN + "1. 🎮 Jugar - ¡Comienza tu viaje para dejar de ser pobre!" + WHITE,
+        BLUE + "MAIN MENU" + WHITE,
+        CYAN + "1. 🎮 Play - Start your journey to stop being poor!" + WHITE,
         CYAN + "2. 📊 Ver Puntuaciones - Revisa tu progreso" + WHITE,
         CYAN + "3. 🚪 Salir - Abandona el juego" + WHITE
     };
     printSectionBox(lines, WIDTH);
-    printCenteredNoRightBorder(BLUE + "Selecciona una opción (1-3):" + WHITE, WIDTH);
+    printCenteredNoRightBorder(BLUE + "Select an option (1-3):" + WHITE, WIDTH);
     std::cout << RESET;
 }
 
@@ -109,7 +109,7 @@ void displayDifficultyMenu() {
     const int WIDTH = 100;
     std::vector<std::string> lines = {
         CYAN + "Selecciona la dificultad:" + WHITE,
-        CYAN + "F - 🟢 Fácil   M - 🟡 Medio   A - 🔴 Avanzado" + WHITE
+        CYAN + "F - 🟢 Easy   M - 🟡 Medium   A - 🔴 Advanced" + WHITE
     };
     printSectionBox(lines, WIDTH);
     printCenteredNoRightBorder(CYAN + "Elige F, M o A:" + WHITE, WIDTH);
@@ -125,7 +125,7 @@ void displayProgressBar(int current, int total, int barWidth) {
     cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
     cout << "║  Pregunta " << current << " de " << total << " ";
     
-    // Centrar la barra de progreso
+    // Center the progress bar
     int spaces = 50 - barWidth;
     for (int i = 0; i < spaces/2; i++) cout << " ";
     
@@ -145,19 +145,19 @@ void displayQuestionBox(const string& question, const vector<string>& options, i
     
     cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
     cout << "║                              🧠 PREGUNTA " << questionNumber << "/" << totalQuestions << " 🧠                          ║\n";
-    cout << "║                              📊 Puntuación: " << score << " puntos 📊                        ║\n";
+    cout << "║                              📊 Score: " << score << " points 📊                        ║\n";
     cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
     cout << "║                                                                              ║\n";
     
-    // Mostrar pregunta con formato
+    // Show question with formatting
     cout << "║  " << question << "\n";
     cout << "║                                                                              ║\n";
     
-    // Mostrar opciones con formato mejorado
+    // Show options with improved formatting
     char optionLetters[] = {'A', 'B', 'C', 'D'};
     for (int i = 0; i < options.size(); i++) {
         cout << "║  🎯 " << optionLetters[i] << ") " << options[i];
-        // Rellenar espacios para mantener alineación
+        // Fill spaces to keep alignment
         int spaces = 70 - options[i].length();
         for (int j = 0; j < spaces; j++) cout << " ";
         cout << " ║\n";
@@ -174,8 +174,8 @@ void displayCorrectAnswer() {
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
     std::vector<std::string> lines = {
-        GREEN + "✅ ¡CORRECTO!" + WHITE,
-        GREEN + "¡Suma un punto a tu marcador!" + WHITE
+        GREEN + "✅ CORRECT!" + WHITE,
+        GREEN + "Add a point to your score!" + WHITE
     };
     printSectionBox(lines, WIDTH);
     std::cout << RESET;
@@ -200,7 +200,7 @@ void displayPowerUpMenu() {
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
     std::vector<std::string> lines = {
-        YELLOW + "⚡ ¡Elige tu Power-Up!" + WHITE,
+        YELLOW + "⚡ Choose your Power-Up!" + WHITE,
         YELLOW + "1. ⭐ Doble Puntos   2. 🎲 Opciones Reducidas   3. 💖 Vida Extra   4. 💡 Revelar Pista" + WHITE
     };
     printSectionBox(lines, WIDTH);
@@ -214,29 +214,59 @@ void displayMiniGameIntro(const std::string& gameName) {
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
     std::vector<std::string> lines = {
-        CYAN + "🎲 ¡MINI-JUEGO!" + WHITE,
+        CYAN + "🎲 MINI-GAME!" + WHITE,
         CYAN + "Juega: " + gameName + WHITE,
-        CYAN + "¡Gana para obtener un Power-Up!" + WHITE
+        CYAN + "Win to get a Power-Up!" + WHITE
     };
     printSectionBox(lines, WIDTH);
     printCenteredNoRightBorder(CYAN + "Presiona cualquier tecla para comenzar..." + WHITE, WIDTH);
     std::cout << RESET;
 }
 
-void displayFinalResults(const std::string& playerName, int score, int totalQuestions) {
+void displayFinalResults(const std::string& playerName, int score, int totalQuestions, int requiredToWin, int rewardLevel) {
+    clearScreen();
     const std::string BLUE = "\033[1;34m";
     const std::string GREEN = "\033[1;32m";
+    const std::string YELLOW = "\033[1;33m";
+    const std::string RED = "\033[1;31m";
     const std::string WHITE = "\033[1;37m";
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
+    
     std::vector<std::string> lines = {
-        BLUE + "🏁 RESULTADOS FINALES" + WHITE,
-        WHITE + "Jugador: " + playerName,
-        WHITE + "Puntuación: " + std::to_string(score) + "/" + std::to_string(totalQuestions),
-        (score >= totalQuestions/2 ? GREEN + "🎉 ¡Felicidades, gran resultado!" + WHITE : BLUE + "¡Sigue practicando!" + WHITE)
+        BLUE + "🏁 FINAL RESULTS" + WHITE,
+        WHITE + "Player: " + playerName,
+        WHITE + "Score: " + std::to_string(score) + "/" + std::to_string(totalQuestions),
+        WHITE + "Required to win: " + std::to_string(requiredToWin) + "/" + std::to_string(totalQuestions)
     };
+    
+    // Add result message
+    if (score >= requiredToWin) {
+        lines.push_back(GREEN + "🎉 Congratulations! You've stopped being poor! 🎉" + WHITE);
+    } else {
+        lines.push_back(RED + "💔 Sorry, you're still poor. Keep studying! 💔" + WHITE);
+    }
+    
+    // Add reward message
+    std::string rewardMessage;
+    switch (rewardLevel) {
+        case 0:
+            rewardMessage = YELLOW + "🍫 Reward: Thanks for participating" + WHITE;
+            break;
+        case 1:
+            rewardMessage = YELLOW + "🍫 Reward: 1 small chocolate" + WHITE;
+            break;
+        case 2:
+            rewardMessage = YELLOW + "🍫 Reward: 2 small chocolates" + WHITE;
+            break;
+        case 3:
+            rewardMessage = YELLOW + "🍫 Reward: 1 chocolate bar" + WHITE;
+            break;
+    }
+    lines.push_back(rewardMessage);
+    
     printSectionBox(lines, WIDTH);
-    printCenteredNoRightBorder(BLUE + "¿Quieres jugar de nuevo? (Y/N):" + WHITE, WIDTH);
+    printCenteredNoRightBorder(BLUE + "Do you want to play again? (Y/N):" + WHITE, WIDTH);
     std::cout << RESET;
 }
 
@@ -309,9 +339,9 @@ void displayPlayerRegistration() {
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
     std::vector<std::string> lines = {
-        BLUE + "👤 REGISTRO DE JUGADOR" + WHITE,
+        BLUE + "👤 PLAYER REGISTRATION" + WHITE,
         "",
-        CYAN + "Por favor, ingresa tu nombre y apellido para comenzar." + WHITE
+        CYAN + "Please, enter your first and last name to start." + WHITE
     };
     printSectionBox(lines, WIDTH);
     std::cout << RESET;
@@ -355,7 +385,7 @@ void displayHangmanState(const std::string& hangmanArt, const std::string& guess
     printSectionBox(lines, WIDTH);
 }
 
-void displayHangmanMessage(const std::string& msg, const std::string& color = "\033[1;37m") {
+void displayHangmanMessage(const std::string& msg, const std::string& color) {
     const int WIDTH = 100;
     std::vector<std::string> lines = { color + msg + "\033[0m" };
     printSectionBox(lines, WIDTH);
@@ -377,17 +407,17 @@ void displayRPSHands(const std::string* left, const std::string* right, int play
     const std::string WHITE = "\033[1;37m";
     const int WIDTH = 100;
     std::vector<std::string> lines = {
-        CYAN + "Tú eliges: " + WHITE + (playerMove == 0 ? "✊" : playerMove == 1 ? "✋" : "✌️") +
+        CYAN + "You choose: " + WHITE + (playerMove == 0 ? "✊" : playerMove == 1 ? "✋" : "✌️") +
         CYAN + "    VS    " + WHITE + (computerMove == 0 ? "✊" : computerMove == 1 ? "✋" : "✌️")
     };
-    // Añadir arte ASCII
+    // Add ASCII art
     for (int i = 0; i < 6; ++i) {
         lines.push_back(WHITE + left[i] + "     " + right[i]);
     }
     printSectionBox(lines, WIDTH);
 }
 
-void displayRPSMessage(const std::string& msg, const std::string& color = "\033[1;37m") {
+void displayRPSMessage(const std::string& msg, const std::string& color) {
     const int WIDTH = 100;
     std::vector<std::string> lines = { color + msg + "\033[0m" };
     printSectionBox(lines, WIDTH);
@@ -398,19 +428,19 @@ std::string colorizeTicTacToeCell(char c) {
     if (c == 'X') content = "\033[1;34mX\033[0m";
     else if (c == 'O') content = "\033[1;31mO\033[0m";
     else content = " ";
-    // Centrar en 3 espacios
+    // Center in 3 spaces
     return " " + content + " ";
 }
 
 void displayTicTacToeBoard(const std::vector<char>& board) {
-    // Tablero simple alineado a la izquierda, sin caja ni centrado
+    // Simple left-aligned board, no box or centering
     std::cout << "\n   TIC-TAC-TOE\n";
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
             int idx = i * 3 + j;
             char c = board[idx];
             if (c == ' ') {
-                // Muestra el número de la casilla si está vacía
+                // Show the cell number if empty
                 std::cout << " " << (idx + 1) << " ";
             } else if (c == 'X') {
                 std::cout << " \033[1;34mX\033[0m ";
@@ -425,7 +455,7 @@ void displayTicTacToeBoard(const std::vector<char>& board) {
     std::cout << std::endl;
 }
 
-void displayTicTacToeMessage(const std::string& msg, const std::string& color = "\033[1;37m") {
+void displayTicTacToeMessage(const std::string& msg, const std::string& color) {
     const int WIDTH = 100;
     std::vector<std::string> lines = { color + msg + "\033[0m" };
     printSectionBox(lines, WIDTH);

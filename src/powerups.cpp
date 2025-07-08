@@ -18,24 +18,24 @@ void PowerUp::choosePower() {
 
 void PowerUp::applyEffect() {
     cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
-    cout << "║                              ⚡ POWER-UP ACTIVADO ⚡                         ║\n";
+    cout << "║                              ⚡ POWER-UP ACTIVATED ⚡                         ║\n";
     cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
     cout << "║                                                                              ║\n";
-    cout << "║  🎯 " << getPowerName() << " ha sido activado! 🎯                          ║\n";
+    cout << "║  🎯 " << getPowerName() << " has been activated! 🎯                          ║\n";
     cout << "║                                                                              ║\n";
     
     switch (type) {
         case DOUBLE_POINTS:
-            cout << "║  ⭐ ¡Las respuestas correctas ahora darán DOBLE puntos! ⭐              ║\n";
+            cout << "║  ⭐ ¡Las respuestas correctas now give DOUBLE points! ⭐              ║\n";
             break;
         case REDUCED_OPTIONS:
-            cout << "║  🎲 ¡Solo se mostrarán dos opciones de respuesta por pregunta! 🎲    ║\n";
+            cout << "║  🎲 Only two answer options will be shown per question! 🎲    ║\n";
             break;
         case EXTRA_LIFE:
-            cout << "║  💖 ¡Obtienes una vida extra si fallas una pregunta! 💖              ║\n";
+            cout << "║  💖 You get an extra life if you miss a question! 💖              ║\n";
             break;
         case REVEAL_HINT:
-            cout << "║  💡 ¡Se mostrarán pistas durante cada pregunta de trivia! 💡          ║\n";
+            cout << "║  💡 Hints will be shown during each trivia question! 💡          ║\n";
             break;
         default:
             break;

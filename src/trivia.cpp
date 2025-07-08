@@ -116,7 +116,7 @@ public:
     }
 };
 
-// Interfaz pública
+// Public interface
 TriviaGame::TriviaGame() {}
 void TriviaGame::play() {
     TriviaEngine engine;

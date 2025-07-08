@@ -19,7 +19,7 @@ public:
     PowerUp();
     void choosePower();           // Muestra opciones y asigna el tipo
     void applyEffect();           // Muestra el efecto activado
-    PowerType getType() const;    // Obtener tipo para uso en lógica trivia
+    PowerType getType() const;    // Get type for use in trivia logic
     std::string getPowerName() const; // Nombre legible del power-up
 };
 

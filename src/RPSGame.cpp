@@ -137,8 +137,7 @@ public:
     void run() {
         srand(time(0));
         cout << " Rock, Paper, Scissors - Best of 1!\n";
-        cout << "Choose your move:\n";
-        cout << "0 - Rock\n1 - Paper\n2 - Scissors\n";
+        cout << "Choose your move:\n0 - Rock (✊)\n1 - Paper (✋)\n2 - Scissors (✌️)\n";
         int playerMove;
         while (true) {
             cout << "Your choice: ";
@@ -154,7 +153,7 @@ public:
     }
 };
 
-// ========== Interfaz pública ==========
+// ========== Public interface ==========
 RPSGame::RPSGame() {}
 bool RPSGame::play() {
     RPSInternal game;
@@ -163,13 +162,13 @@ bool RPSGame::play() {
     for (int round = 1; round <= 3; ++round) {
         clearScreen();
         displayRPSRound(round);
-        cout << "Elige tu jugada:\n0 - Piedra (✊)\n1 - Papel (✋)\n2 - Tijeras (✌️)\n";
+        cout << "Choose your move:\n0 - Rock (✊)\n1 - Paper (✋)\n2 - Scissors (✌️)\n";
         int playerMove;
         while (true) {
-            cout << "Tu elección: ";
+            cout << "Your choice: ";
             cin >> playerMove;
             if (playerMove >= 0 && playerMove <= 2) break;
-            displayRPSMessage("Entrada inválida. Intenta de nuevo.", "\033[1;31m");
+            displayRPSMessage("Invalid input. Try again.", "\033[1;31m");
         }
         int computerMove = rand() % 3;
         // Mostrar manos
@@ -189,29 +188,29 @@ bool RPSGame::play() {
         displayRPSHands(left, right, playerMove, computerMove);
         // Determine round winner
         if (playerMove == computerMove) {
-            displayRPSMessage("🤝 ¡Empate en esta ronda!", "\033[1;33m");
+            displayRPSMessage("🤝 Tie in this round!", "\033[1;33m");
         } else if ((playerMove == 0 && computerMove == 2) ||
                    (playerMove == 1 && computerMove == 0) ||
                    (playerMove == 2 && computerMove == 1)) {
-            displayRPSMessage("🏆 ¡Ganaste esta ronda!", "\033[1;32m");
+            displayRPSMessage("🏆 You won this round!", "\033[1;32m");
             playerScore++;
         } else {
-            displayRPSMessage("❌ La computadora gana esta ronda!", "\033[1;31m");
+            displayRPSMessage("❌ The computer wins this round!", "\033[1;31m");
             computerScore++;
         }
-        cout << "Presiona cualquier tecla para continuar...";
+        cout << "Press any key to continue...";
         cin.ignore();
         cin.get();
     }
     // Show overall winner
     if (playerScore > computerScore) {
-        displayRPSMessage("🏆 ¡Ganaste el mini-juego!", "\033[1;32m");
+        displayRPSMessage("🏆 You won the mini-game!", "\033[1;32m");
         return true;
     } else if (computerScore > playerScore) {
-        displayRPSMessage("❌ La computadora gana el mini-juego!", "\033[1;31m");
+        displayRPSMessage("❌ The computer wins the mini-game!", "\033[1;31m");
         return false;
     } else {
-        displayRPSMessage("🤝 ¡Empate en el mini-juego!", "\033[1;33m");
+        displayRPSMessage("🤝 Tie in the mini-game!", "\033[1;33m");
         return false;
     }
 }

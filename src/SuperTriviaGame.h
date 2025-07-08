@@ -16,6 +16,7 @@ private:
 
     int correctAnswers;
     int totalQuestions;
+    int requiredToWin;  // Minimum correct answers to win
 
     // Control de power-ups durante la ronda
     bool doublePointsActive;
@@ -23,10 +24,15 @@ private:
     bool extraLifeActive;
     bool revealHintActive;
 
+    // Reward system
+    int rewardLevel;  // 0: No reward, 1: Small chocolate, 2: 2 small chocolates, 3: Chocolate bar
+
     void resetPowerUps();
     void applyPowerUpEffect();
     void showFinalResults();
     void askPlayAgain(bool &playAgain);
+    void calculateReward();
+    void offerRevengeGame();
 
 public:
     SuperTriviaGame();

@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -100,7 +101,7 @@ public:
     }
 
     void run() {
-        displayHangmanMessage("¡Bienvenido a Hangman!", "\033[1;36m");
+        displayHangmanMessage("Welcome to Hangman!", "\033[1;36m");
         while (!isGameWon() && !isGameOver()) {
             clearConsole();
             displayHangmanState(getHangmanArt(), guessedWord, wrongGuesses, MAX_ATTEMPTS - wrongGuesses.size());
@@ -110,9 +111,9 @@ public:
         clearConsole();
         displayHangmanState(getHangmanArt(), guessedWord, wrongGuesses, MAX_ATTEMPTS - wrongGuesses.size());
         if (isGameWon())
-            displayHangmanMessage("🏆 ¡Ganaste! La palabra era: " + secretWord, "\033[1;32m");
+            displayHangmanMessage("🏆 You won! The word was: " + secretWord, "\033[1;32m");
         else
-            displayHangmanMessage("❌ ¡Perdiste! La palabra era: " + secretWord, "\033[1;31m");
+            displayHangmanMessage("❌ You lost! The word was: " + secretWord, "\033[1;31m");
     }
 
     bool isGameWon() {
@@ -120,7 +121,7 @@ public:
     }
 };
 
-// Interfaz pública
+// Public interface
 Hangman::Hangman() {}
 
 bool Hangman::play() {

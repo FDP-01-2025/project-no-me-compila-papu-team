@@ -10,9 +10,9 @@ Player::Player() : score(0) {}
 
 void Player::inputPlayerInfo() {
     displayPlayerRegistration();
-    cout << "│  Nombre: ";
+    cout << "│  Name: ";
     getline(cin >> ws, firstName);
-    cout << "│  Apellido: ";
+    cout << "│  Last Name: ";
     getline(cin >> ws, lastName);
 }
 
@@ -31,7 +31,7 @@ int Player::getScore() const {
 void Player::saveScore() {
     map<string, int> players;
 
-    // Leer jugadores existentes
+    // Read existing players
     ifstream infile("data/player_scores.txt");
     string line;
     while (getline(infile, line)) {
@@ -44,10 +44,10 @@ void Player::saveScore() {
     }
     infile.close();
 
-    // Actualizar o añadir nuevo jugador
+    // Update or add new player
     players[getFullName()] = score;
 
-    // Guardar todos de nuevo
+    // Save all again
     ofstream outfile("data/player_scores.txt");
     for (const auto& p : players) {
         outfile << p.first << "|" << p.second << "\n";
