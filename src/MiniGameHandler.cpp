@@ -28,7 +28,6 @@ bool playRockPaperScissors() {
 MiniGameHandler::MiniGameHandler() {}
 
 bool MiniGameHandler::playRandomMiniGame() {
-    srand(time(0));
     int choice = rand() % 3;
 
     string gameNames[] = {"Tic-Tac-Toe", "Hangman", "Rock-Paper-Scissors"};
