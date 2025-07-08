@@ -282,6 +282,9 @@ test.exe
 ![Game Interface Mockup 5](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2023.06.18_cd609384.jpg)
 *Final results and replay functionality*
 
+![Game Interface Mockup 6](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2023.06.18_cd609384.jpg)
+*Additional game interface design*
+
 ### Team
 **Team Name:** No me compila papu team 
 
