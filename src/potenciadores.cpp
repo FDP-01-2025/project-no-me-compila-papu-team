@@ -1,4 +1,5 @@
 #include "PowerUp.h"
+#include "SpriteDisplay.h"
 #include <iostream>
 
 using namespace std;
@@ -6,15 +7,10 @@ using namespace std;
 PowerUp::PowerUp() : type(NONE) {}
 
 void PowerUp::choosePower() {
-    cout << "\n You won the mini-game! Choose your Power-Up:\n";
-    cout << "1. DOUBLE POINTS\n";
-    cout << "2. REDUCED OPTIONS\n";
-    cout << "3. EXTRA LIFE\n";
-    cout << "4. REVEAL HINT\n";
-
+    displayPowerUpMenu();
+    
     int choice;
     while (true) {
-        cout << "Enter your choice (1-4): ";
         cin >> choice;
         if (choice >= 1 && choice <= 4) break;
         cout << "Invalid option. Try again.\n";
@@ -24,23 +20,33 @@ void PowerUp::choosePower() {
 }
 
 void PowerUp::applyEffect() {
-    cout << "\n Power-Up Activated: " << getPowerName() << "!\n";
+    cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+    cout << "║                              ⚡ POWER-UP ACTIVADO ⚡                         ║\n";
+    cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║                                                                              ║\n";
+    cout << "║  🎯 " << getPowerName() << " ha sido activado! 🎯                          ║\n";
+    cout << "║                                                                              ║\n";
+    
     switch (type) {
         case DOUBLE_POINTS:
-            cout << "Correct answers will now give DOUBLE points!\n";
+            cout << "║  ⭐ ¡Las respuestas correctas ahora darán DOBLE puntos! ⭐              ║\n";
             break;
         case REDUCED_OPTIONS:
-            cout << "Only two answer options will be shown per question!\n";
+            cout << "║  🎲 ¡Solo se mostrarán dos opciones de respuesta por pregunta! 🎲    ║\n";
             break;
         case EXTRA_LIFE:
-            cout << "You get one extra life if you miss a question!\n";
+            cout << "║  💖 ¡Obtienes una vida extra si fallas una pregunta! 💖              ║\n";
             break;
         case REVEAL_HINT:
-            cout << "Hints will be shown during each trivia question!\n";
+            cout << "║  💡 ¡Se mostrarán pistas durante cada pregunta de trivia! 💡          ║\n";
             break;
         default:
             break;
     }
+    
+    cout << "║                                                                              ║\n";
+    cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "\n🎮 Presiona cualquier tecla para continuar...";
 }
 
 PowerType PowerUp::getType() const {

@@ -1,4 +1,5 @@
 #include "Question.h"
+#include "SpriteDisplay.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -10,13 +11,12 @@
 using namespace std;
 
 void Question::display(bool reducedOptions, bool showHint) const {
-    cout << "\n " << question << "\n";
-    char letters[] = {'A', 'B', 'C', 'D'};
-
-    vector<int> indices = {0, 1, 2, 3};
+    // Usar la nueva interfaz mejorada
+    vector<string> displayOptions = options;
+    
     if (reducedOptions) {
         // Always include correct answer, plus one random incorrect
-        indices.clear();
+        vector<int> indices;
         indices.push_back(correctAnswer - 'A');
 
         vector<int> wrong;
@@ -24,14 +24,21 @@ void Question::display(bool reducedOptions, bool showHint) const {
             if (i != (correctAnswer - 'A')) wrong.push_back(i);
         indices.push_back(wrong[rand() % wrong.size()]);
         shuffle(indices.begin(), indices.end(), default_random_engine(rand()));
-    }
-
-    for (int i : indices) {
-        cout << letters[i] << ") " << options[i] << "\n";
+        
+        // Crear opciones reducidas
+        vector<string> reducedOptions;
+        for (int i : indices) {
+            reducedOptions.push_back(options[i]);
+        }
+        displayOptions = reducedOptions;
     }
 
     if (showHint) {
-        cout << " Hint: The correct answer is option " << correctAnswer << "\n";
+        // Agregar pista a la pregunta
+        string questionWithHint = question + "\n💡 Pista: La respuesta correcta es la opción " + correctAnswer;
+        displayQuestionBox(questionWithHint, displayOptions, 0, 0, 0); // Los parámetros se pasarán desde SuperTriviaGame
+    } else {
+        displayQuestionBox(question, displayOptions, 0, 0, 0); // Los parámetros se pasarán desde SuperTriviaGame
     }
 }
 

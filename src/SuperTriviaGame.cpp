@@ -17,7 +17,7 @@ SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10),
     doublePointsActive(false), reducedOptionsActive(false),
     extraLifeActive(false), revealHintActive(false)
 {
-    if (!questionManager.loadFromFile("trivia_data.txt")) {
+    if (!questionManager.loadFromFile("data/trivia_data.txt")) {
         cout << "Error loading trivia questions file!\n";
     }
 }
@@ -41,21 +41,7 @@ void SuperTriviaGame::applyPowerUpEffect() {
 }
 
 void SuperTriviaGame::showFinalResults() {
-    clearConsole();
-    cout << "\n=== ROUND COMPLETED ===\n";
-    cout << "Player: " << player.getFullName() << "\n";
-    cout << "Score: " << correctAnswers << " out of " << totalQuestions << "\n";
-
-    if (correctAnswers >= totalQuestions / 2) {
-        displayHappySprite();
-    } else {
-        displayAngrySprite();
-    }
-
-    player.setScore(correctAnswers);
-    player.saveScore();
-
-    cout << "\nDo you want to play again? (Y/N): ";
+    displayFinalResults(player.getFullName(), correctAnswers, totalQuestions);
 }
 
 void SuperTriviaGame::askPlayAgain(bool &playAgain) {
@@ -87,14 +73,7 @@ void SuperTriviaGame::start() {
     // Mostrar opciones del menú principal
     char menuChoice;
     while (true) {
-        cout << "\n============================================================\n";
-        cout << "                    MAIN MENU\n";
-        cout << "============================================================\n";
-        cout << "1. Play Game - Start your journey to stop being poor!\n";
-        cout << "2. View Saved Scores - Check your progress\n";
-        cout << "3. Exit - Leave the game\n";
-        cout << "------------------------------------------------------------\n";
-        cout << "Enter your choice (1-3): ";
+        displayMainMenu();
         cin >> menuChoice;
         
         if (menuChoice == '1') {
@@ -119,32 +98,27 @@ void SuperTriviaGame::start() {
         resetPowerUps();
         correctAnswers = 0;
 
-    char level;
-while (true) {
-    cout << "\nSelect difficulty level:\n";
-    cout << "F - Easy\nM - Medium\nA - Advanced\n";
-    cout << "Enter your choice: ";
-    cin >> level;
-    level = toupper(level);
+        displayDifficultyMenu();
+        char level;
+        while (true) {
+            cin >> level;
+            level = toupper(level);
 
-    if (level == 'F' || level == 'M' || level == 'A') { 
-        break;
-    } else {
-        cout << "Invalid input. Please enter F, M, or A.\n\n";
-    }
-}
+            if (level == 'F' || level == 'M' || level == 'A') { 
+                break;
+            } else {
+                cout << "Invalid input. Please enter F, M, or A.\n\n";
+            }
+        }
 
-auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
+        auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
 
         for (int i = 0; i < totalQuestions; ++i) {
-            clearConsole();
-            cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
-            cout << "Score: " << correctAnswers << "\n\n";
-
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
                 if (wonMiniGame) {
                     clearConsole();
+                    displayPowerUpMenu();
                     powerUp.choosePower();
                     applyPowerUpEffect();
                     clearConsole();
@@ -154,16 +128,37 @@ auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions
                 }
             }
 
+            // Mostrar pregunta con nueva interfaz
             clearConsole();
-            cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
-            cout << "Score: " << correctAnswers << "\n\n";
-
-            questions[i].display(reducedOptionsActive, revealHintActive);
+            displayProgressBar(i + 1, totalQuestions);
+            
+            cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+            cout << "║                              🧠 PREGUNTA " << (i + 1) << "/" << totalQuestions << " 🧠                          ║\n";
+            cout << "║                              📊 Puntuación: " << correctAnswers << " puntos 📊                        ║\n";
+            cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+            cout << "║                                                                              ║\n";
+            
+            // Mostrar pregunta con formato
+            cout << "║  " << questions[i].question << "\n";
+            cout << "║                                                                              ║\n";
+            
+            // Mostrar opciones con formato mejorado
+            char optionLetters[] = {'A', 'B', 'C', 'D'};
+            for (int j = 0; j < questions[i].options.size(); j++) {
+                cout << "║  🎯 " << optionLetters[j] << ") " << questions[i].options[j];
+                // Rellenar espacios para mantener alineación
+                int spaces = 70 - questions[i].options[j].length();
+                for (int k = 0; k < spaces; k++) cout << " ";
+                cout << " ║\n";
+            }
+            
+            cout << "║                                                                              ║\n";
+            cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+            cout << "\n🎯 Tu respuesta (A/B/C/D): ";
 
             char answer;
             bool validAnswer = false;
             while (!validAnswer) {
-                cout << "Your answer: ";
                 cin >> answer;
                 answer = toupper(answer);
                 
@@ -176,20 +171,16 @@ auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions
             }
 
             if (questions[i].checkAnswer(answer)) {
-                clearConsole();
-                cout << "Correct!\n";
+                displayCorrectAnswer();
                 int pointsToAdd = doublePointsActive ? 2 : 1;
                 if (doublePointsActive) {
                     cout << "DOUBLE POINTS! +" << pointsToAdd << " points\n";
                 }
                 correctAnswers += pointsToAdd;
-                cout << "Press any key to continue...";
                 cin.ignore();
                 cin.get();
             } else {
-                clearConsole();
-                cout << "Incorrect.\n";
-                cout << "The correct answer was: " << questions[i].getCorrectAnswer() << "\n";
+                displayIncorrectAnswer(questions[i].getCorrectAnswer());
                 if (extraLifeActive) {
                     cout << "You have an extra life! Try again: ";
                     clearConsole();
@@ -226,7 +217,6 @@ auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions
                     cin.get();
                     extraLifeActive = false;
                 } else {
-                    cout << "Press any key to continue...";
                     cin.ignore();
                     cin.get();
                 }

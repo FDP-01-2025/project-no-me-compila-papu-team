@@ -21,7 +21,7 @@ private:
     vector<Question> questions;
 
     void loadQuestions() {
-        ifstream file("trivia_data.txt");
+        ifstream file("data/trivia_data.txt");
         string line;
         while (getline(file, line)) {
             Question q;

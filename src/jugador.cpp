@@ -31,7 +31,7 @@ void Player::saveScore() {
     map<string, int> players;
 
     // Leer jugadores existentes
-    ifstream infile("player_scores.txt");
+    ifstream infile("data/player_scores.txt");
     string line;
     while (getline(infile, line)) {
         stringstream ss(line);
@@ -47,7 +47,7 @@ void Player::saveScore() {
     players[getFullName()] = score;
 
     // Guardar todos de nuevo
-    ofstream outfile("player_scores.txt");
+    ofstream outfile("data/player_scores.txt");
     for (const auto& p : players) {
         outfile << p.first << "|" << p.second << "\n";
     }
@@ -59,7 +59,7 @@ void Player::displaySavedScores() {
     cout << "Name\t\t\tScore\n";
     cout << "------------------------\n";
     
-    ifstream infile("player_scores.txt");
+    ifstream infile("data/player_scores.txt");
     if (!infile.is_open()) {
         cout << "No saved scores found.\n";
         return;

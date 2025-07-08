@@ -25,7 +25,7 @@ private:
     }
 
     string pickRandomWord() {
-        ifstream file("words.txt");
+        ifstream file("data/words.txt");
         vector<string> words;
         string word;
 
