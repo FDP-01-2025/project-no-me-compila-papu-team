@@ -160,10 +160,20 @@ auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions
 
             questions[i].display(reducedOptionsActive, revealHintActive);
 
-            cout << "Your answer: ";
             char answer;
-            cin >> answer;
-            answer = toupper(answer);
+            bool validAnswer = false;
+            while (!validAnswer) {
+                cout << "Your answer: ";
+                cin >> answer;
+                answer = toupper(answer);
+                
+                // Validar que la respuesta sea una opción válida (A, B, C, D)
+                if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
+                    validAnswer = true;
+                } else {
+                    cout << "Invalid option. Please enter A, B, C, or D.\n";
+                }
+            }
 
             if (questions[i].checkAnswer(answer)) {
                 clearConsole();
@@ -186,9 +196,20 @@ auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions
                     cout << "Question " << (i + 1) << " of " << totalQuestions << "\n";
                     cout << "Score: " << correctAnswers << "\n\n";
                     questions[i].display(reducedOptionsActive, revealHintActive);
-                    cout << "Your answer: ";
-                    cin >> answer;
-                    answer = toupper(answer);
+                    
+                    validAnswer = false;
+                    while (!validAnswer) {
+                        cout << "Your answer: ";
+                        cin >> answer;
+                        answer = toupper(answer);
+                        
+                        // Validar que la respuesta sea una opción válida (A, B, C, D)
+                        if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
+                            validAnswer = true;
+                        } else {
+                            cout << "Invalid option. Please enter A, B, C, or D.\n";
+                        }
+                    }
                     if (questions[i].checkAnswer(answer)) {
                         cout << "Correct!\n";
                         int pointsToAdd = doublePointsActive ? 2 : 1;
