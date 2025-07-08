@@ -84,6 +84,33 @@ void SuperTriviaGame::start() {
     cin.get(); // Espera que el jugador presione una tecla
     clearConsole();
 
+    // Mostrar opciones del menú principal
+    char menuChoice;
+    while (true) {
+        cout << "\n============================================================\n";
+        cout << "                    MAIN MENU\n";
+        cout << "============================================================\n";
+        cout << "1. Play Game - Start your journey to stop being poor!\n";
+        cout << "2. View Saved Scores - Check your progress\n";
+        cout << "3. Exit - Leave the game\n";
+        cout << "------------------------------------------------------------\n";
+        cout << "Enter your choice (1-3): ";
+        cin >> menuChoice;
+        
+        if (menuChoice == '1') {
+            break;
+        } else if (menuChoice == '2') {
+            clearConsole();
+            Player::displaySavedScores();
+            clearConsole();
+        } else if (menuChoice == '3') {
+            cout << "\nThanks for playing! Keep learning and stop being poor!\n";
+            return;
+        } else {
+            cout << "Invalid choice. Please enter 1, 2, or 3.\n";
+        }
+    }
+
     player.inputPlayerInfo();
 
     bool playAgain = true;

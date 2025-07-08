@@ -53,3 +53,36 @@ void Player::saveScore() {
     }
     outfile.close();
 }
+
+void Player::displaySavedScores() {
+    cout << "\n=== SAVED SCORES ===\n";
+    cout << "Name\t\t\tScore\n";
+    cout << "------------------------\n";
+    
+    ifstream infile("player_scores.txt");
+    if (!infile.is_open()) {
+        cout << "No saved scores found.\n";
+        return;
+    }
+    
+    string line;
+    bool hasScores = false;
+    while (getline(infile, line)) {
+        stringstream ss(line);
+        string name;
+        int score;
+        if (getline(ss, name, '|') && ss >> score) {
+            cout << name << "\t\t" << score << "\n";
+            hasScores = true;
+        }
+    }
+    infile.close();
+    
+    if (!hasScores) {
+        cout << "No saved scores found.\n";
+    }
+    
+    cout << "\nPress any key to continue...";
+    cin.ignore();
+    cin.get();
+}

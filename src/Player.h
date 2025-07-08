@@ -17,6 +17,7 @@ public:
     void setScore(int newScore);          // Asigna puntaje
     int getScore() const;                 // Devuelve puntaje
     void saveScore();                     // Guarda o actualiza archivo
+    static void displaySavedScores();     // Muestra puntajes guardados
 };
 
 #endif
