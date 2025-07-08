@@ -103,16 +103,84 @@ void displayMainMenu() {
 }
 
 void displayDifficultyMenu() {
+    const std::string BLUE = "\033[1;34m";
+    const std::string GREEN = "\033[1;32m";
+    const std::string YELLOW = "\033[1;33m";
+    const std::string RED = "\033[1;31m";
     const std::string CYAN = "\033[0;36m";
     const std::string WHITE = "\033[1;37m";
     const std::string RESET = "\033[0m";
     const int WIDTH = 100;
+    
     std::vector<std::string> lines = {
-        CYAN + "Selecciona la dificultad:" + WHITE,
-        CYAN + "F - 🟢 Easy   M - 🟡 Medium   A - 🔴 Advanced" + WHITE
+        BLUE + "🎯 SELECT DIFFICULTY LEVEL" + WHITE,
+        "",
+        GREEN + "🟢 F - FACIL (EASY)" + WHITE,
+        GREEN + "   • Perfect for beginners" + WHITE,
+        GREEN + "   • Basic concepts and simple questions" + WHITE,
+        GREEN + "   • Higher chance of winning rewards" + WHITE,
+        "",
+        YELLOW + "🟡 M - MEDIO (MEDIUM)" + WHITE,
+        YELLOW + "   • For players with some experience" + WHITE,
+        YELLOW + "   • Balanced difficulty questions" + WHITE,
+        YELLOW + "   • Standard reward system" + WHITE,
+        "",
+        RED + "🔴 A - AVANZADO (ADVANCED)" + WHITE,
+        RED + "   • For expert players only" + WHITE,
+        RED + "   • Complex and challenging questions" + WHITE,
+        RED + "   • Maximum rewards for skilled players" + WHITE,
+        "",
+        CYAN + "💡 Tip: Choose wisely! Your difficulty affects your rewards!" + WHITE
     };
     printSectionBox(lines, WIDTH);
-    printCenteredNoRightBorder(CYAN + "Elige F, M o A:" + WHITE, WIDTH);
+    printCenteredNoRightBorder(CYAN + "Enter your choice (F/M/A):" + WHITE, WIDTH);
+    std::cout << RESET;
+}
+
+void displayDifficultyRewards(char difficulty) {
+    const std::string BLUE = "\033[1;34m";
+    const std::string GREEN = "\033[1;32m";
+    const std::string YELLOW = "\033[1;33m";
+    const std::string RED = "\033[1;31m";
+    const std::string CYAN = "\033[0;36m";
+    const std::string WHITE = "\033[1;37m";
+    const std::string RESET = "\033[0m";
+    const int WIDTH = 100;
+    
+    std::string difficultyName, difficultyColor, rewardInfo;
+    
+    switch (toupper(difficulty)) {
+        case 'F':
+            difficultyName = "FACIL (EASY)";
+            difficultyColor = GREEN;
+            rewardInfo = "🍫 Higher chance of winning chocolates\n   🎯 Easier questions = More rewards!";
+            break;
+        case 'M':
+            difficultyName = "MEDIO (MEDIUM)";
+            difficultyColor = YELLOW;
+            rewardInfo = "🍫 Standard chocolate rewards\n   🎯 Balanced difficulty and rewards";
+            break;
+        case 'A':
+            difficultyName = "AVANZADO (ADVANCED)";
+            difficultyColor = RED;
+            rewardInfo = "🍫 Maximum chocolate rewards\n   🏆 Only for the bravest players!";
+            break;
+        default:
+            return;
+    }
+    
+    std::vector<std::string> lines = {
+        BLUE + "🎁 REWARDS FOR " + difficultyColor + difficultyName + WHITE,
+        "",
+        CYAN + "Your potential rewards:" + WHITE,
+        "",
+        WHITE + rewardInfo,
+        "",
+        CYAN + "💡 Remember: Win mini-games to get Power-Ups!" + WHITE,
+        CYAN + "💡 Power-Ups help you earn more points!" + WHITE
+    };
+    printSectionBox(lines, WIDTH);
+    printCenteredNoRightBorder(CYAN + "Press any key to start your adventure..." + WHITE, WIDTH);
     std::cout << RESET;
 }
 

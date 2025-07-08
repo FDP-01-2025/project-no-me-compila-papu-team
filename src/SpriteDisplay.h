@@ -7,6 +7,7 @@
 void displayWelcomeMessage();
 void displayMainMenu();
 void displayDifficultyMenu();
+void displayDifficultyRewards(char difficulty);
 void displayProgressBar(int current, int total, int barWidth = 50);
 void displayQuestionBox(const std::string& question, const std::vector<std::string>& options, int questionNumber, int totalQuestions, int score);
 void displayCorrectAnswer();

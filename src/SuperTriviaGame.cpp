@@ -2,6 +2,7 @@
 #include "SpriteDisplay.h"
 #include <iostream>
 #include <cctype>
+#include <limits>
 
 using namespace std;
 
@@ -145,14 +146,102 @@ void SuperTriviaGame::start() {
 
         displayDifficultyMenu();
         char level;
-        while (true) {
-            cin >> level;
+        bool validDifficulty = false;
+        
+        while (!validDifficulty) {
+            std::cout << "Enter your choice: ";
+            if (!(std::cin >> level)) {
+                // Handle invalid input (non-char)
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "\n❌ Invalid input. Please enter a single letter (F, M, or A).\n";
+                std::cout << "Press any key to try again...";
+                std::cin.get();
+                clearConsole();
+                displayDifficultyMenu();
+                continue;
+            }
+            
             level = toupper(level);
 
-            if (level == 'F' || level == 'M' || level == 'A') { 
-                break;
+            if (level == 'F' || level == 'M' || level == 'A') {
+                // Show confirmation with difficulty details
+                clearConsole();
+                const std::string GREEN = "\033[1;32m";
+                const std::string YELLOW = "\033[1;33m";
+                const std::string RED = "\033[1;31m";
+                const std::string WHITE = "\033[1;37m";
+                const std::string RESET = "\033[0m";
+                
+                std::string difficultyName, difficultyColor;
+                if (level == 'F') {
+                    difficultyName = "FACIL (EASY)";
+                    difficultyColor = GREEN;
+                } else if (level == 'M') {
+                    difficultyName = "MEDIO (MEDIUM)";
+                    difficultyColor = YELLOW;
+                } else {
+                    difficultyName = "AVANZADO (ADVANCED)";
+                    difficultyColor = RED;
+                }
+                
+                std::cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+                std::cout << "║                              🎯 DIFFICULTY CONFIRMATION 🎯                    ║\n";
+                std::cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+                std::cout << "║                                                                              ║\n";
+                std::cout << "║  You selected: " << difficultyColor << difficultyName << WHITE << "\n";
+                std::cout << "║                                                                              ║\n";
+                std::cout << "║  Are you sure you want to play with this difficulty? (Y/N):                ║\n";
+                std::cout << "║                                                                              ║\n";
+                std::cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+                std::cout << "\nEnter Y to confirm or N to choose again: ";
+                
+                char confirm;
+                if (!(std::cin >> confirm)) {
+                    // Handle invalid input
+                    std::cin.clear();
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cout << "Invalid input. Please enter Y or N.\n";
+                    std::cout << "Press any key to continue...";
+                    std::cin.get();
+                    clearConsole();
+                    displayDifficultyMenu();
+                    continue;
+                }
+                confirm = toupper(confirm);
+                
+                if (confirm == 'Y') {
+                    validDifficulty = true;
+                    std::cout << "\n" << difficultyColor << "Perfect! Starting with " << difficultyName << " difficulty..." << RESET << "\n";
+                    std::cout << "Press any key to continue...";
+                    std::cin.ignore();
+                    std::cin.get();
+                    
+                    // Show rewards information for the selected difficulty
+                    clearConsole();
+                    displayDifficultyRewards(level);
+                    std::cin.ignore();
+                    std::cin.get();
+                } else if (confirm == 'N') {
+                    clearConsole();
+                    displayDifficultyMenu();
+                    continue;
+                } else {
+                    std::cout << "Invalid input. Please enter Y or N.\n";
+                    std::cout << "Press any key to continue...";
+                    std::cin.ignore();
+                    std::cin.get();
+                    clearConsole();
+                    displayDifficultyMenu();
+                    continue;
+                }
             } else {
-                cout << "Invalid input. Please enter F, M, or A.\n\n";
+                std::cout << "\n❌ Invalid input. Please enter F, M, or A.\n";
+                std::cout << "Press any key to try again...";
+                std::cin.ignore();
+                std::cin.get();
+                clearConsole();
+                displayDifficultyMenu();
             }
         }
 
