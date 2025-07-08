@@ -57,11 +57,17 @@ public:
         int move;
         while (true) {
             cout << "Enter your move (1-9): ";
-            cin >> move;
-            move--;
-            if (move >= 0 && move < 9 && board[move] == ' ')
-                return move;
-            cout << "Invalid move. Try again.\n";
+            if (cin >> move) {
+                move--;
+                if (move >= 0 && move < 9 && board[move] == ' ')
+                    return move;
+                else
+                    cout << "Invalid move. Try again.\n";
+            } else {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a number between 1 and 9.\n";
+            }
         }
     }
 

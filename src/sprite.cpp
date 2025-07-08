@@ -403,20 +403,26 @@ std::string colorizeTicTacToeCell(char c) {
 }
 
 void displayTicTacToeBoard(const std::vector<char>& board) {
-    const std::string CYAN = "\033[0;36m";
-    const std::string WHITE = "\033[1;37m";
-    const std::string RESET = "\033[0m";
-    const int WIDTH = 100;
-    std::vector<std::string> lines = {
-        CYAN + "⭕️❌ TIC-TAC-TOE ❌⭕️" + WHITE,
-        "",
-        WHITE + colorizeTicTacToeCell(board[0]) + "|" + colorizeTicTacToeCell(board[1]) + "|" + colorizeTicTacToeCell(board[2]),
-        WHITE + "---+---+---",
-        WHITE + colorizeTicTacToeCell(board[3]) + "|" + colorizeTicTacToeCell(board[4]) + "|" + colorizeTicTacToeCell(board[5]),
-        WHITE + "---+---+---",
-        WHITE + colorizeTicTacToeCell(board[6]) + "|" + colorizeTicTacToeCell(board[7]) + "|" + colorizeTicTacToeCell(board[8]) + RESET
-    };
-    printSectionBox(lines, WIDTH);
+    // Tablero simple alineado a la izquierda, sin caja ni centrado
+    std::cout << "\n   TIC-TAC-TOE\n";
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            int idx = i * 3 + j;
+            char c = board[idx];
+            if (c == ' ') {
+                // Muestra el número de la casilla si está vacía
+                std::cout << " " << (idx + 1) << " ";
+            } else if (c == 'X') {
+                std::cout << " \033[1;34mX\033[0m ";
+            } else if (c == 'O') {
+                std::cout << " \033[1;31mO\033[0m ";
+            }
+            if (j < 2) std::cout << "|";
+        }
+        std::cout << "\n";
+        if (i < 2) std::cout << "---+---+---\n";
+    }
+    std::cout << std::endl;
 }
 
 void displayTicTacToeMessage(const std::string& msg, const std::string& color = "\033[1;37m") {
