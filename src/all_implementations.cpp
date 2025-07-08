@@ -8,6 +8,9 @@
 #include "SpriteDisplay.h"
 #include "MiniGameHandler.h"
 #include "SuperTriviaGame.h"
+#include "GuessNumberGame.h"
+#include "MemorySequenceGame.h"
+#include "QuickReactionGame.h"
 
 // Then include implementations in dependency order
 #include "player.cpp"
@@ -17,5 +20,8 @@
 #include "Hangman.cpp"
 #include "RPSGame.cpp"
 #include "TicTacToe.cpp"
+#include "GuessNumberGame.cpp"
+#include "MemorySequenceGame.cpp"
+#include "QuickReactionGame.cpp"
 #include "MiniGameHandler.cpp"
 #include "SuperTriviaGame.cpp" 
