@@ -235,8 +235,6 @@ This function displays the current state of the Tic-Tac-Toe board using formatte
 - Power-Up System: Dynamic effects applied mid-round
 - ASCII Graphics: Lightweight, no additional libraries needed
 
-### Mockups
-
 
 ### Execution Instructions
 Follow the steps below to compile and run the game “Who Wants to Stop Being Poor?” on your machine.
@@ -266,6 +264,23 @@ bash
 On Windows:
 bash
 test.exe
+
+### Mockups
+
+![Game Interface Mockup 1](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2021.56.54_9d6eead8.jpg)
+*Initial game interface and menu design*
+
+![Game Interface Mockup 2](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2022.36.09_13d94325.jpg)
+*Question display and answer selection interface*
+
+![Game Interface Mockup 3](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2022.36.09_2b8ed8c3.jpg)
+*Mini-game integration and power-up system*
+
+![Game Interface Mockup 4](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2022.36.10_3661bc3e.jpg)
+*Score tracking and game progression*
+
+![Game Interface Mockup 5](mockups/Imagen%20de%20WhatsApp%202025-07-07%20a%20las%2023.06.18_cd609384.jpg)
+*Final results and replay functionality*
 
 ### Team
 **Team Name:** No me compila papu team 
