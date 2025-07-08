@@ -1,4 +1,5 @@
 #include "Hangman.h"
+#include "SpriteDisplay.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -39,52 +40,32 @@ private:
         return words[index];
     }
 
-    void drawState() {
-        clearConsole();
-        drawHangman();
-
-        cout << "\nWord: ";
-        for (char c : guessedWord)
-            cout << c << ' ';
-
-        cout << "\nWrong guesses: ";
-        for (char c : wrongGuesses)
-            cout << c << ' ';
-
-        cout << "\nAttempts left: " << (MAX_ATTEMPTS - wrongGuesses.size()) << "\n";
-    }
-
-    void drawHangman() {
+    string getHangmanArt() {
         int attemptsLeft = MAX_ATTEMPTS - wrongGuesses.size();
-        cout << "\n";
-        cout << "  +---+\n";
-        cout << "  |   |\n";
-
-        // Head
-        cout << (attemptsLeft < 6 ? "  O   |\n" : "      |\n");
-
-        // Body + arms
+        stringstream ss;
+        ss << "\n";
+        ss << "  +---+\n";
+        ss << "  |   |\n";
+        ss << (attemptsLeft < 6 ? "  O   |\n" : "      |\n");
         if (attemptsLeft < 4) {
-            cout << " /|\\  |\n"; // full arms
+            ss << " /|\\  |\n";
         } else if (attemptsLeft < 5) {
-            cout << " /|   |\n"; // one arm
+            ss << " /|   |\n";
         } else if (attemptsLeft < 6) {
-            cout << "  |   |\n"; // just body
+            ss << "  |   |\n";
         } else {
-            cout << "      |\n";
+            ss << "      |\n";
         }
-
-        // Legs
         if (attemptsLeft < 2) {
-            cout << " / \\  |\n"; // both legs
+            ss << " / \\  |\n";
         } else if (attemptsLeft < 3) {
-            cout << " /    |\n"; // one leg
+            ss << " /    |\n";
         } else {
-            cout << "      |\n";
+            ss << "      |\n";
         }
-
-        cout << "      |\n";
-        cout << "=========\n";
+        ss << "      |\n";
+        ss << "=========";
+        return ss.str();
     }
 
     bool isGameOver() {
@@ -93,7 +74,7 @@ private:
 
     char getPlayerGuess() {
         char guess;
-        cout << "\nEnter a letter: ";
+        cout << "\nIngresa una letra: ";
         cin >> guess;
         return toupper(guess);
     }
@@ -119,18 +100,19 @@ public:
     }
 
     void run() {
-        cout << "Welcome to Hangman!\n";
+        displayHangmanMessage("¡Bienvenido a Hangman!", "\033[1;36m");
         while (!isGameWon() && !isGameOver()) {
-            drawState();
+            clearConsole();
+            displayHangmanState(getHangmanArt(), guessedWord, wrongGuesses, MAX_ATTEMPTS - wrongGuesses.size());
             char guess = getPlayerGuess();
             updateGame(guess);
         }
-
-        drawState();
+        clearConsole();
+        displayHangmanState(getHangmanArt(), guessedWord, wrongGuesses, MAX_ATTEMPTS - wrongGuesses.size());
         if (isGameWon())
-            cout << "\n You won! The word was: " << secretWord << "\n";
+            displayHangmanMessage("🏆 ¡Ganaste! La palabra era: " + secretWord, "\033[1;32m");
         else
-            cout << "\n You lost! The word was: " << secretWord << "\n";
+            displayHangmanMessage("❌ ¡Perdiste! La palabra era: " + secretWord, "\033[1;31m");
     }
 
     bool isGameWon() {

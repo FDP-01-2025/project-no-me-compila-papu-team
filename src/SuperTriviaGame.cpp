@@ -90,6 +90,7 @@ void SuperTriviaGame::start() {
         }
     }
 
+    clearScreen();
     player.inputPlayerInfo();
 
     bool playAgain = true;

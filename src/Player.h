@@ -3,6 +3,8 @@
 
 #include <string>
 
+void displayPlayerRegistration();
+
 class Player {
 private:
     std::string firstName;

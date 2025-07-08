@@ -32,6 +32,7 @@ bool MiniGameHandler::playRandomMiniGame() {
     int choice = rand() % 3;
 
     string gameNames[] = {"Tic-Tac-Toe", "Hangman", "Rock-Paper-Scissors"};
+    clearScreen();
     displayMiniGameIntro(gameNames[choice]);
 
     cin.ignore();

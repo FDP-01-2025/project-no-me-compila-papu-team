@@ -9,10 +9,11 @@ using namespace std;
 Player::Player() : score(0) {}
 
 void Player::inputPlayerInfo() {
-    cout << "Enter your first name: ";
-    cin >> firstName;
-    cout << "Enter your last name: ";
-    cin >> lastName;
+    displayPlayerRegistration();
+    cout << "│  Nombre: ";
+    getline(cin >> ws, firstName);
+    cout << "│  Apellido: ";
+    getline(cin >> ws, lastName);
 }
 
 string Player::getFullName() const {

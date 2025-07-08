@@ -1,4 +1,5 @@
 #include "TicTacToe.h"
+#include "SpriteDisplay.h"
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -27,12 +28,7 @@ public:
     }
 
     void drawBoard() {
-        cout << endl;
-        cout << " " << board[0] << " | " << board[1] << " | " << board[2] << endl;
-        cout << "---+---+---" << endl;
-        cout << " " << board[3] << " | " << board[4] << " | " << board[5] << endl;
-        cout << "---+---+---" << endl;
-        cout << " " << board[6] << " | " << board[7] << " | " << board[8] << endl << endl;
+        displayTicTacToeBoard(board);
     }
 
     bool isWinner(char mark) {
@@ -154,7 +150,7 @@ TicTacToe::TicTacToe() {}
 bool TicTacToe::play() {
     InternalTicTacToe game;
     bool playerWon = false;
-    cout << "Welcome to Tic-Tac-Toe!" << endl;
+    displayTicTacToeMessage("¡Bienvenido a Tic-Tac-Toe!", "\033[1;36m");
     game.drawBoard();
     while (true) {
         int player = game.getPlayerMove();
@@ -162,13 +158,13 @@ bool TicTacToe::play() {
         game.clearConsole();
         game.drawBoard();
         if (game.isWinner(game.playerMark)) {
-            cout << "You win!" << endl;
+            displayTicTacToeMessage("🏆 ¡Ganaste!", "\033[1;32m");
             playerWon = true;
             break;
         }
         if (game.isFull()) {
-            cout << "It's a tie!" << endl;
-            cout << "Press any key to continue...";
+            displayTicTacToeMessage("🤝 ¡Empate!", "\033[1;33m");
+            cout << "Presiona cualquier tecla para continuar...";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.get();
             break;
@@ -177,9 +173,9 @@ bool TicTacToe::play() {
         int comp = game.getComputerMove();
         game.board[comp] = game.computerMark;
 
-        cout << "Computer chose position " << (comp + 1) << endl;
+        displayTicTacToeMessage("La computadora eligió la posición " + to_string(comp + 1), "\033[1;36m");
         game.drawBoard();
-        cout << "Press any key to continue...";
+        cout << "Presiona cualquier tecla para continuar...";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
 
@@ -187,15 +183,15 @@ bool TicTacToe::play() {
         game.drawBoard();
 
         if (game.isWinner(game.computerMark)) {
-            cout << "Computer wins!" << endl;
-            cout << "Press any key to continue...";
+            displayTicTacToeMessage("❌ ¡La computadora gana!", "\033[1;31m");
+            cout << "Presiona cualquier tecla para continuar...";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.get();
             break;
         }
         if (game.isFull()) {
-            cout << "It's a tie!" << endl;
-            cout << "Press any key to continue...";
+            displayTicTacToeMessage("🤝 ¡Empate!", "\033[1;33m");
+            cout << "Presiona cualquier tecla para continuar...";
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cin.get();
             break;

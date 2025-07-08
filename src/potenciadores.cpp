@@ -7,15 +7,12 @@ using namespace std;
 PowerUp::PowerUp() : type(NONE) {}
 
 void PowerUp::choosePower() {
-    displayPowerUpMenu();
-    
     int choice;
     while (true) {
         cin >> choice;
         if (choice >= 1 && choice <= 4) break;
         cout << "Invalid option. Try again.\n";
     }
-
     type = static_cast<PowerType>(choice - 1);
 }
 
