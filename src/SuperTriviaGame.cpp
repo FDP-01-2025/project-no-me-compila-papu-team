@@ -16,7 +16,9 @@ void clearConsole() {
 
 SuperTriviaGame::SuperTriviaGame() : correctAnswers(0), totalQuestions(10), requiredToWin(7),
     doublePointsActive(false), reducedOptionsActive(false),
-    extraLifeActive(false), revealHintActive(false), rewardLevel(0)
+    extraLifeActive(false), revealHintActive(false), 
+    nextQuestionDoublePoints(false), nextQuestionReducedOptions(false), 
+    nextQuestionRevealHint(false), rewardLevel(0)
 {
     if (!questionManager.loadFromFile("data/trivia_data.txt")) {
         cout << "Error loading trivia questions file!\n";
@@ -28,14 +30,17 @@ void SuperTriviaGame::resetPowerUps() {
     reducedOptionsActive = false;
     extraLifeActive = false;
     revealHintActive = false;
+    nextQuestionDoublePoints = false;
+    nextQuestionReducedOptions = false;
+    nextQuestionRevealHint = false;
 }
 
 void SuperTriviaGame::applyPowerUpEffect() {
     switch (powerUp.getType()) {
-        case DOUBLE_POINTS: doublePointsActive = true; break;
-        case REDUCED_OPTIONS: reducedOptionsActive = true; break;
-        case EXTRA_LIFE: extraLifeActive = true; break;
-        case REVEAL_HINT: revealHintActive = true; break;
+        case DOUBLE_POINTS: nextQuestionDoublePoints = true; break;
+        case REDUCED_OPTIONS: nextQuestionReducedOptions = true; break;
+        case EXTRA_LIFE: extraLifeActive = true; break; // Este sí dura hasta que se use
+        case REVEAL_HINT: nextQuestionRevealHint = true; break;
         default: break;
     }
     powerUp.applyEffect();
@@ -43,6 +48,32 @@ void SuperTriviaGame::applyPowerUpEffect() {
 
 void SuperTriviaGame::showFinalResults() {
     calculateReward();
+    
+    // Guardar el puntaje del jugador
+    player.setScore(correctAnswers);
+    player.saveScore();
+    
+    // Limpiar pantalla antes de mostrar resultados
+    clearConsole();
+    
+    // Mostrar sprite según resultado
+    if (correctAnswers >= requiredToWin) {
+        cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+        cout << "║                              🎉 ¡FELICIDADES! 🎉                            ║\n";
+        cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "DEBUG: Llamando a displayHappySprite()\n";
+        displayHappySprite();
+        cout << "DEBUG: displayHappySprite() completado\n";
+    } else {
+        cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+        cout << "║                              😠 ¡MEJORA TU JUEGO! 😠                        ║\n";
+        cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "DEBUG: Llamando a displayAngrySprite()\n";
+        displayAngrySprite();
+        cout << "DEBUG: displayAngrySprite() completado\n";
+    }
+    
+    cout << "\n";
     displayFinalResults(player.getFullName(), correctAnswers, totalQuestions, requiredToWin, rewardLevel);
     offerRevengeGame();
 }
@@ -248,6 +279,20 @@ void SuperTriviaGame::start() {
         auto questions = questionManager.getRandomQuestionsByLevel(level, totalQuestions);
 
         for (int i = 0; i < totalQuestions; ++i) {
+            // Activar powerups temporales para esta pregunta
+            if (nextQuestionDoublePoints) {
+                doublePointsActive = true;
+                nextQuestionDoublePoints = false;
+            }
+            if (nextQuestionReducedOptions) {
+                reducedOptionsActive = true;
+                nextQuestionReducedOptions = false;
+            }
+            if (nextQuestionRevealHint) {
+                revealHintActive = true;
+                nextQuestionRevealHint = false;
+            }
+            
             if (i > 0 && i % 3 == 0) {
                 bool wonMiniGame = miniGameHandler.playRandomMiniGame();
                 if (wonMiniGame) {
@@ -262,33 +307,29 @@ void SuperTriviaGame::start() {
                 }
             }
 
-            // Show question with new interface
+            // Show question with powerups applied
             clearConsole();
             displayProgressBar(i + 1, totalQuestions);
             
-            cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
-            cout << "║                              🧠 PREGUNTA " << (i + 1) << "/" << totalQuestions << " 🧠                          ║\n";
-            cout << "║                              📊 Score: " << correctAnswers << " points 📊                        ║\n";
-            cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
-            cout << "║                                                                              ║\n";
-            
-            // Show question with formatted output
-            cout << "║  " << questions[i].question << "\n";
-            cout << "║                                                                              ║\n";
-            
-            // Show options with improved formatting
-            char optionLetters[] = {'A', 'B', 'C', 'D'};
-            for (int j = 0; j < questions[i].options.size(); j++) {
-                cout << "║  🎯 " << optionLetters[j] << ") " << questions[i].options[j];
-                // Fill spaces to keep alignment
-                int spaces = 70 - questions[i].options[j].length();
-                for (int k = 0; k < spaces; k++) cout << " ";
-                cout << " ║\n";
+            // Mostrar powerups activos si los hay
+            if (reducedOptionsActive || revealHintActive || doublePointsActive) {
+                cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+                cout << "║                              ⚡ POWER-UPS ACTIVOS ⚡                          ║\n";
+                cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+                if (doublePointsActive) {
+                    cout << "║  ⭐ Double Points: Las respuestas correctas dan 2 puntos!                ║\n";
+                }
+                if (reducedOptionsActive) {
+                    cout << "║  🎲 Opciones Reducidas: Solo se muestran 2 opciones por pregunta          ║\n";
+                }
+                if (revealHintActive) {
+                    cout << "║  💡 Pista Revelada: Se muestra una pista para cada pregunta              ║\n";
+                }
+                cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
             }
             
-            cout << "║                                                                              ║\n";
-            cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
-            cout << "\n🎯 Tu respuesta (A/B/C/D): ";
+            // Usar el método display de Question que maneja los powerups
+            questions[i].display(reducedOptionsActive, revealHintActive);
 
             char answer;
             bool validAnswer = false;
@@ -296,11 +337,21 @@ void SuperTriviaGame::start() {
                 cin >> answer;
                 answer = toupper(answer);
                 
-                // Validate that the answer is a valid option (A, B, C, D)
-                if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
-                    validAnswer = true;
+                // Validate that the answer is a valid option based on active powerups
+                if (reducedOptionsActive) {
+                    // With reduced options, only A and B are valid
+                    if (answer == 'A' || answer == 'B') {
+                        validAnswer = true;
+                    } else {
+                        cout << "Invalid option. Please enter A or B.\n";
+                    }
                 } else {
-                    cout << "Invalid option. Please enter A, B, C, or D.\n";
+                    // Normal validation (A, B, C, D)
+                    if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
+                        validAnswer = true;
+                    } else {
+                        cout << "Invalid option. Please enter A, B, C, or D.\n";
+                    }
                 }
             }
 
@@ -328,11 +379,21 @@ void SuperTriviaGame::start() {
                         cin >> answer;
                         answer = toupper(answer);
                         
-                        // Validate that the answer is a valid option (A, B, C, D)
-                        if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
-                            validAnswer = true;
+                        // Validate that the answer is a valid option based on active powerups
+                        if (reducedOptionsActive) {
+                            // With reduced options, only A and B are valid
+                            if (answer == 'A' || answer == 'B') {
+                                validAnswer = true;
+                            } else {
+                                cout << "Invalid option. Please enter A or B.\n";
+                            }
                         } else {
-                            cout << "Invalid option. Please enter A, B, C, or D.\n";
+                            // Normal validation (A, B, C, D)
+                            if (answer == 'A' || answer == 'B' || answer == 'C' || answer == 'D') {
+                                validAnswer = true;
+                            } else {
+                                cout << "Invalid option. Please enter A, B, C, or D.\n";
+                            }
                         }
                     }
                     if (questions[i].checkAnswer(answer)) {
@@ -356,12 +417,15 @@ void SuperTriviaGame::start() {
                 }
             }
 
+            // Desactivar powerups que solo duran una pregunta
             doublePointsActive = false;
             reducedOptionsActive = false;
             revealHintActive = false;
+            // NO desactivar extraLifeActive aquí ya que debe durar hasta que se use
         }
 
         showFinalResults();
+        resetPowerUps(); // Reset all powerups at the end of the game
         askPlayAgain(playAgain);
     }
 

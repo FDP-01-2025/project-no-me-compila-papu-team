@@ -23,6 +23,11 @@ private:
     bool reducedOptionsActive;
     bool extraLifeActive;
     bool revealHintActive;
+    
+    // Powerups temporales (solo para la siguiente pregunta)
+    bool nextQuestionDoublePoints;
+    bool nextQuestionReducedOptions;
+    bool nextQuestionRevealHint;
 
     // Reward system
     int rewardLevel;  // 0: No reward, 1: Small chocolate, 2: 2 small chocolates, 3: Chocolate bar

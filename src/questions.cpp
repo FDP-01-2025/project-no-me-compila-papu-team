@@ -13,6 +13,7 @@ using namespace std;
 void Question::display(bool reducedOptions, bool showHint) const {
     // Use the new improved interface
     vector<string> displayOptions = options;
+    vector<char> displayLetters = {'A', 'B', 'C', 'D'};
     
     if (reducedOptions) {
         // Always include correct answer, plus one random incorrect
@@ -27,19 +28,52 @@ void Question::display(bool reducedOptions, bool showHint) const {
         
         // Create reduced options
         vector<string> reducedOptions;
-        for (int i : indices) {
-            reducedOptions.push_back(options[i]);
+        vector<char> reducedLetters;
+        for (int i = 0; i < indices.size(); i++) {
+            reducedOptions.push_back(options[indices[i]]);
+            reducedLetters.push_back('A' + i);
         }
         displayOptions = reducedOptions;
+        displayLetters = reducedLetters;
     }
 
+    // Show question with new interface
+    cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+    cout << "║                              🧠 PREGUNTA 🧠                                    ║\n";
+    cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║                                                                              ║\n";
+    
+    // Show question with formatted output
+    string questionText = question;
     if (showHint) {
-        // Add hint to the question
-        string questionWithHint = question + "\n💡 Hint: The correct answer is option " + correctAnswer;
-        displayQuestionBox(questionWithHint, displayOptions, 0, 0, 0); // Parameters will be passed from SuperTriviaGame
-    } else {
-        displayQuestionBox(question, displayOptions, 0, 0, 0); // Parameters will be passed from SuperTriviaGame
+        if (reducedOptions) {
+            // Con opciones reducidas, mostrar la respuesta correcta directamente
+            questionText += "\n💡 Hint: The correct answer is: " + getCorrectAnswer();
+        } else {
+            // Con todas las opciones, mostrar la letra
+            questionText += "\n💡 Hint: The correct answer is option " + string(1, correctAnswer);
+        }
     }
+    cout << "║  " << questionText << "\n";
+    cout << "║                                                                              ║\n";
+    
+    // Show options with improved formatting
+    for (int j = 0; j < displayOptions.size(); j++) {
+        cout << "║  🎯 " << displayLetters[j] << ") " << displayOptions[j];
+        // Fill spaces to keep alignment
+        int spaces = 70 - displayOptions[j].length();
+        for (int k = 0; k < spaces; k++) cout << " ";
+        cout << " ║\n";
+    }
+    
+    cout << "║                                                                              ║\n";
+    cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+    cout << "\n🎯 Tu respuesta (";
+    for (int j = 0; j < displayLetters.size(); j++) {
+        cout << displayLetters[j];
+        if (j < displayLetters.size() - 1) cout << "/";
+    }
+    cout << "): ";
 }
 
 bool Question::checkAnswer(char answer) const {

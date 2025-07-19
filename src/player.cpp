@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <map>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -56,33 +58,66 @@ void Player::saveScore() {
 }
 
 void Player::displaySavedScores() {
-    cout << "\n=== SAVED SCORES ===\n";
-    cout << "Name\t\t\tScore\n";
-    cout << "------------------------\n";
+    cout << "\n╔══════════════════════════════════════════════════════════════════════════════╗\n";
+    cout << "║                              🏆 HIGH SCORES 🏆                              ║\n";
+    cout << "╠══════════════════════════════════════════════════════════════════════════════╣\n";
+    cout << "║                                                                              ║\n";
     
     ifstream infile("data/player_scores.txt");
     if (!infile.is_open()) {
-        cout << "No saved scores found.\n";
+        cout << "║  ❌ No saved scores found.                                                ║\n";
+        cout << "║                                                                              ║\n";
+        cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "\nPress any key to continue...";
+        cin.ignore();
+        cin.get();
         return;
     }
     
     string line;
     bool hasScores = false;
+    int lineCount = 0;
+    
+    // Leer todas las líneas primero para contar
+    vector<pair<string, int>> scores;
     while (getline(infile, line)) {
         stringstream ss(line);
         string name;
         int score;
         if (getline(ss, name, '|') && ss >> score) {
-            cout << name << "\t\t" << score << "\n";
+            scores.push_back({name, score});
             hasScores = true;
         }
     }
     infile.close();
     
     if (!hasScores) {
-        cout << "No saved scores found.\n";
+        cout << "║  ❌ No saved scores found.                                                ║\n";
+    } else {
+        // Ordenar por puntaje (mayor a menor)
+        sort(scores.begin(), scores.end(), 
+             [](const pair<string, int>& a, const pair<string, int>& b) {
+                 return a.second > b.second;
+             });
+        
+        // Mostrar los mejores 10 puntajes
+        int maxDisplay = min(10, (int)scores.size());
+        for (int i = 0; i < maxDisplay; i++) {
+            string rank = to_string(i + 1);
+            if (i == 0) rank = "🥇";
+            else if (i == 1) rank = "🥈";
+            else if (i == 2) rank = "🥉";
+            
+            cout << "║  " << rank << " " << scores[i].first;
+            // Rellenar espacios para alinear
+            int spaces = 50 - scores[i].first.length();
+            for (int j = 0; j < spaces; j++) cout << " ";
+            cout << " " << scores[i].second << " pts ║\n";
+        }
     }
     
+    cout << "║                                                                              ║\n";
+    cout << "╚══════════════════════════════════════════════════════════════════════════════╝\n";
     cout << "\nPress any key to continue...";
     cin.ignore();
     cin.get();
